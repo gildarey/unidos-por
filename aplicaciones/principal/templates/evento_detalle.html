@@ -1,0 +1,185 @@
+{% extends 'index.html' %}
+{% block title %}
+Eventos
+{% endblock title %}
+{% block sources %}
+<!-- ajax -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<style>
+    .detail {
+        text-align: left;
+    }
+</style>
+{% endblock sources %}
+</head>
+{% block body %}
+
+<body class="d-flex h-100 text-center " onload="init()" >
+    {% endblock body %}
+    {% block page %}
+    <div class="container">
+        <h3>
+            {{detalle.evento}}
+        </h3>
+        <div class="row">
+            <div class="col-sm-6" style="height: 40vh;">
+                {% if detalle.image %}
+                <img src="{{ detalle.image.url }}" alt="{{ detalle.evento }}" style="max-width: 80%;">
+                {% else %}
+                <h4 class="align-text-bottom border border-dark"
+                    style="padding: 17vh 0;margin: auto; text-align: center;   text-transform: uppercase;">
+                    No contiene imagen
+                </h4>
+                {% endif %}
+            </div>
+            <div class="col-sm-6 " style="height: 50vh;">
+                <div class="row detail">
+                    <div class="col ">
+                        <h3 id="meta" style="color:#0D912D">
+                            <!-- <strong>
+                                Meta:
+                            </strong>
+                            {{detalle.meta}} -->
+                        </h3>
+                        
+                    </div>
+                    <!-- <div class="col ">
+                        <h5>
+                            <strong>
+                                Recaudado:
+                            </strong>
+                            Gs. 0
+                        </h5>
+                        
+                    </div> -->
+                </div>
+
+                <div class="row detail">
+                    <div class="col ">
+                        <p>
+                            <strong>
+                            Evento para:
+                            </strong>
+                            {{detalle.beneficiario}}
+                        </p>
+                        
+                    </div>
+                </div>
+                <div class="row detail">
+                    <div class="col ">
+                        <p id="costo">
+                        </p>
+                    </div>
+                </div>
+                <div class="row detail">
+                    <div class="col ">
+                        <p>
+                            <strong>
+                                Organizadores:
+                            </strong>
+                            {{detalle.organizador}}
+                        </p>
+                    </div>
+                    <div class="col ">
+                        <p>
+                            <strong>
+                                Teléfono:
+                            </strong>
+                            {{detalle.telefono}}
+                        </p>
+                    </div>
+                </div>
+                <div class="row detail">
+                    <div class="col ">
+                        <p>
+                            <strong>
+                                Medios de Pago:
+                            </strong>
+                            {{detalle.medios}}
+                        </p>
+                    </div>
+                </div>
+                <div class="row detail">
+                    <div class="col ">
+                        <p>
+                            <strong>
+                                Dirección:
+                            </strong>
+                            {{detalle.direccion}}, {{detalle.ciudad}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row  align-top">
+            <div class="col-sm" style="height: 45vh;">
+                <h4>
+                    Descripción
+                </h4>
+                <p>
+                    {{detalle.descripcion}}
+                </p>
+                <p class="lead">
+                    <a href='#' class="btn btn-fill disabled" aria-disabled="true" role="button"
+                        data-bs-toggle="button">Donar</a>
+                    <a href='#' class="btn btn-border" onclick="copyLink()">Copiar Enlace</a>
+                    <a href='#' onclick="openMap()" class="btn btn-fill">Ver Ubicación</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    {% csrf_token %}
+    <script>
+        function openMap() {
+            // If it's an iPhone..
+            if ((navigator.platform.indexOf("iPhone") != -1) ||
+                (navigator.platform.indexOf("iPod") != -1) ||
+                (navigator.platform.indexOf("iPad") != -1))
+                window.open("maps://www.google.com/maps/place/{{detalle.latitud}},{{detalle.longitud}}");
+            else
+                window.open("https://www.google.com/maps/place/{{detalle.latitud}},{{detalle.longitud}}");
+        }
+
+        function copyLink() {
+            try {
+                var getUrl = window.location;
+                getUrl = getUrl.protocol + "/" + getUrl.host + getUrl.pathname;
+
+
+                var textArea = document.createElement("textarea");
+                textArea.value = getUrl;
+                textArea.style.top = "0";
+                textArea.style.left = "0";
+                textArea.style.position = "fixed";
+
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+
+                try {
+                    var successful = document.execCommand('copy');
+                    var msg = successful ? 'successful' : 'unsuccessful';
+                    alert("Copiado al portapapeles!");
+                } catch (err) {
+                    console.error('Fallback: Oops, unable to copy', err);
+                }
+                document.body.removeChild(textArea);
+
+            } catch (e) {
+                console.error(e);
+            }
+        }
+        
+        function init(){
+            const style = { style: 'currency', currency: 'PYG' };
+            const numberFormat = new Intl.NumberFormat('es-ES', style);
+
+            const costo = numberFormat.format(parseFloat("{{detalle.costo}}"));
+            const meta = numberFormat.format(parseFloat("{{detalle.meta}}"));
+
+            document.getElementById('meta').innerHTML = "<strong> META: </strong>"  + meta;
+            document.getElementById('costo').innerHTML = "<strong>  Costo: </strong>"  + costo;
+        }
+
+    </script>
+    {% endblock page %}

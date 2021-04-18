@@ -1,0 +1,250 @@
+{% extends 'index.html' %}
+{% block title %}
+Eventos
+{% endblock title %}
+{% block sources %}
+<!-- ajax -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<style type="text/css">
+  #map {
+    height: 90vh;
+  }
+</style>
+
+{% endblock sources %}
+</head>
+{% block body %}
+
+<body class=" h-100 text-center ">
+  {% endblock body %}
+  {% block page %}
+
+  {% csrf_token %}
+
+  <section class="section bg-2" id="ch-service">
+    <div class="container">
+      <div class="row section-separator">
+        <div class="col-md-6 col-sm-6 wow fadeInRight" data-wow-delay="0.3s">
+          <div id="map"></div>
+        </div>
+        <!-- <div class="col-md-6 col-sm-6 wow fadeInRight" data-wow-delay="0.6s"> -->
+        <aside class="col-md-6 col-sm-6 ch-sidebar">
+
+          <div class="ch-sidebar-event ch-event shadow ch-sidebar-widget wow fadeInRight" data-wow-delay="0.8s"
+            style="height: 90hv;">
+            <div class="table-display" style="padding-top: 2%;">
+              <div class="join-content col-md-8 wow fadeInRight">
+                <input type="text" name="name" class="form-control" id="name"
+                  placeholder="Buscar evento, organizador, ciudad..." required="">
+              </div>
+              <div class="join-btn col-md-4 wow fadeInLeft">
+                <a href='#' class="btn btn-fill">Buscar</a>
+              </div>
+            </div>
+            <ul>
+              {% for evento in records %}
+              <li class="event-content"
+                style="padding: 2% 5%; border-bottom: 1px solid #bdbdbd; opacity: 0.9; text-align: left;">
+                <div class="row">
+                  <div class="col-md-4 col-sm-4">
+                    {% if evento.image %}
+                    <img src="{{ evento.image.url }}" alt="{{ evento.evento }}" style="max-width: 100%;">
+                    {% endif %}
+                  </div>
+                  <div class="col-md-8 col-sm-8">
+                    <h4> <a href='/evento/{{evento.url}}'> {{ evento.evento }} </a>  </h4>
+                    <h6>#unidospor {{ evento.beneficiario }}</h6>
+                    <div class="schedule">
+                      <span class="event-time">Meta: {{ evento.meta }}</span>
+                      <!-- <span class="event-place">Recaudado: {{ evento.costo }}</span> -->
+                    </div>
+                  </div>
+                </div>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </aside>
+        <!-- </div> -->
+      </div>
+    </div>
+  </section>
+
+
+
+  <script src="https://maps.googleapis.com/maps/api/js?key={{google_api}}&callback=initMap&libraries=&v=weekly"
+    async></script>
+  <script>
+    function initMap() {
+      infoWindow = new google.maps.InfoWindow();
+      const myLatLng = { lat: -23.442503, lng: -58.443832 };
+
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            };
+            const map = new google.maps.Map(document.getElementById("map"), {
+              zoom: 15,
+              center: pos,
+            });
+            infoWindow.open(map);
+
+            const geocoder = new google.maps.Geocoder();
+            geocoder.geocode({ location: pos }, (results, status) => {
+              if (status === "OK") {
+                if (results[0]) {
+
+                  var fullDir = results[0].address_components;
+                  var ciudad;
+
+                  $.each(fullDir, function (i, address_component) {
+                    console.log(address_component.types[0]);
+                    if (address_component.types[0] == "locality") {
+                      ciudad = address_component.long_name;
+                      return false;
+                    }
+                  });
+
+                  getEventos(ciudad, map);
+                } else {
+                  window.alert("No results found");
+                }
+              } else {
+                window.alert("Geocoder failed due to: " + status);
+              }
+            });
+
+
+          },
+          () => {
+            // Asuncion
+            const pos = {
+              lat: -25.270389444255976,
+              lng: -57.57107665560194,
+            };
+            map = new google.maps.Map(document.getElementById("map"), {
+              zoom: 15,
+              center: pos,
+            });
+            
+            try {
+
+              var infoWindow = new google.maps.InfoWindow({
+                position: pos,
+              });
+              var getUrl = window.location;
+              infoWindow.setContent(
+                "<h4>Habilite su ubicación para ver los detalles...</h4>"
+              );
+              infoWindow.open(map);
+            } catch (e) {
+              console.error("unexpected error: ", e);
+              handleLocationError(true, infoWindow, map.getCenter());
+            }
+          }
+        );
+      } else {
+        // Browser doesn't support Geolocation
+        handleLocationError(false, infoWindow, map.getCenter());
+      }
+    }
+
+    function getEventos(ciudad, map) {
+      var eventos = [];
+      $.ajax({
+        type: 'GET',
+        url: '{% url "getEventos" %}',
+        data: {
+          ciudad: ciudad,
+          csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+          // action: 'post'
+        },
+        success: function (json) {
+          if (json["error"]) {
+            console.error("Unexpected error ocurred....");
+          }
+
+          var parsed = JSON.parse(json);
+
+
+
+          for (var x in parsed) {
+            let evento = parsed[x]['fields'];
+            eventos = [...eventos, evento];
+          }
+          console.log(eventos);
+
+          for (var counter in eventos) {
+            var evento = eventos[counter];
+
+            const style = { style: 'currency', currency: 'PYG' };
+            const numberFormat = new Intl.NumberFormat('es-ES', style);
+
+            const costo = numberFormat.format(parseFloat(evento["costo"]));
+            const meta = numberFormat.format(parseFloat(evento["meta"]));
+
+            var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+
+            const pos = {
+              lat: parseFloat(evento["latitud"]),
+              lng: parseFloat(evento["longitud"]),
+            };
+
+            const marker = new google.maps.Marker({
+              position: pos,
+              map
+            });
+            marker.addListener("click", (mapsMouseEvent) => {
+              /**
+               * TODO:
+               * USE OTHER CUSTOM POPUP TO DISPLAY DATA
+               * INFOWINDOW IS OVEWRITING DATA
+              
+              var infoWindow = new google.maps.InfoWindow({
+                position: mapsMouseEvent.latLng,
+              });
+              var getUrl = window.location;
+              infoWindow.setContent(
+                '<div id="content">' +
+                '<div id="siteNotice">' +
+                "</div>" +
+                '<h4 id="firstHeading" class="firstHeading">' + evento["evento"] + '</h4>' +
+                '<div id="bodyContent" style="text-align:left">' +
+                "<p><b>Para: </b>" + evento["beneficiario"] + "</p>" +
+                "<p><b>Meta: </b> Gs. " + meta + "</p>" +
+                "<p><b>Costo Base/Unitario: </b> Gs. " + costo + "</p>" +
+                "<p><b>Telefono: </b> " + evento["telefono"] +
+                '<p><button type="button" class="btn btn-link"> <a href="' + baseUrl.replace('eventos', 'evento') + '/' + evento["url"] + '"> Ver detalles </a>  </button></p>' +
+                "</div>" +
+                "</div>"
+              );
+              */
+              window.open(baseUrl.replace('eventos', 'evento') + '/' + evento["url"], "_self");
+              infoWindow.open(map, marker);
+            });
+            // infoWindow.setContent(evento["evento"]);
+            // infoWindow.open(map, marker);
+          }
+
+
+        },
+        error: function (xhr, errmsg, err) {
+          console.log(xhr.status + ": " + xhr.responseText);
+        }
+      });
+    }
+
+    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+      infoWindow.setPosition(pos);
+      infoWindow.setContent(
+        browserHasGeolocation
+          ? "Error: The Geolocation service failed."
+          : "Error: Your browser doesn't support geolocation."
+      );
+      infoWindow.open(map);
+    }
+  </script>
+  {% endblock page %}

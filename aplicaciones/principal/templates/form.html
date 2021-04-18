@@ -1,0 +1,426 @@
+{% extends 'index.html' %}
+{% block title %}
+Crear Evento
+{% endblock title %}
+{% block sources %}
+<script src='https://maps.googleapis.com/maps/api/js?key={{google_api}}&libraries=places&language=es'></script>
+<!-- ajax -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<style type="text/css">
+    #map {
+        height: 70vh;
+        margin: auto;
+        padding-top: 1%;
+        max-width: 95%;
+    }
+
+    .main-container {
+        margin: auto;
+        width: 100%;
+        padding: 0 5%;
+    }
+
+    #error_location {
+        color: red;
+    }
+
+
+
+    .input_field {
+        display: block;
+        width: 100%;
+        height: 54px;
+        padding: 6px 12px;
+        font-size: 16px;
+        line-height: 27px;
+        color: #000;
+        /* font-weight: 600; */
+        background-color: transparent;
+        background-image: none;
+        border: none;
+        border-radius: 0px;
+        border-bottom: 2px solid #e2e2e2;
+        border-color: #e2e2e2;
+    }
+
+    .upload_img{
+        display: block;
+        width: 100%;
+        height: 54px;
+        padding: 6px 12px;
+        font-size: 16px;
+        line-height: 27px;
+        color: #000;
+        /* font-weight: 600; */
+        background-color: transparent;
+        background-image: none;
+        border-radius: 5px;
+        border: 2px solid #e2e2e2;
+        cursor: pointer;
+        text-align: center;
+    }
+</style>
+{% endblock sources %}
+</head>
+
+{% block body %}
+<!-- d-flex h-100 text-center  -->
+
+<body onload="initMap()" class="">
+    {% endblock body %}
+    {% block page %}
+    <section class="section" style="padding-top: 5%;">
+        <div class="container shadow contact-form">
+            <div class="row">
+                <form class="validate-form " method="POST" id="evento-form">
+                    {% csrf_token %}
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="col-md-12 col-sm-12 col-xs-12" style="text-align: center; padding-bottom: 2%;">
+                            <h2 data-wow-delay="0.2s">Registrar Evento</h2>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6 wow fadeInRight" data-wow-delay="0.5s">
+                                <label for="exampleInputEmail1">Nombre del Evento</label>
+                                <input class="input_field" type="text" name="evento" id="evento" autocomplete="off"
+                                    placeholder="Pollada Solidaria, Colecta solidaria..." value="" required
+                                    label="Nombre del Evento *">
+                            </div>
+                            <div class="form-group col-md-6 wow fadeInRight" data-wow-delay="0.5s">
+                                <label for="exampleInputEmail1">A beneficio de</label>
+                                <input class="input_field" type="text" name="beneficiario" id="beneficiario"
+                                    autocomplete="off" placeholder="Lucía, Escuela San Rafael, etc..." value=""
+                                    required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6 wow fadeInRight" data-wow-delay="0.5s">
+                                <label for="exampleInputEmail1">Organizado por</label>
+                                <input class="input_field" type="text" name="evento" id="organizador" autocomplete="off"
+                                    value="" required>
+                            </div>
+                            <div class="form-group col-md-6 wow fadeInRight" data-wow-delay="0.5s">
+                                <label for="exampleInputEmail1">Fecha del evento (opcional)</label>
+                                <input class="input_field" type="date" name="evento" id="fecha" autocomplete="off"
+                                    value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6 wow fadeInRight" data-wow-delay="0.5s">
+                                <label for="exampleInputEmail1">Teléfono de contacto</label>
+                                <input type="phone" class="input_field" id="telefono" autocomplete="off" required
+                                    value="">
+                            </div>
+                            <div class="form-group col-md-6 wow fadeInRight" data-wow-delay="0.5s">
+                                <label for="exampleInputEmail1">Medios de pago</label>
+                                <input class="input_field" type="medios" name="medios" id="medios" autocomplete="off"
+                                    value="" placeholder="Giros Tigo, Billetera, Transferencia, Efectivo...">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6 wow fadeInRight" data-wow-delay="0.5s">
+                                <label for="exampleInputEmail1">Meta</label>
+                                <input type="number" class="input_field" id="meta" value="100000" autocomplete="off"
+                                    step="500" required>
+                            </div>
+                            <div class="form-group col-md-6 wow fadeInRight" data-wow-delay="0.5s">
+                                <label for="exampleInputEmail1">Costo base (para adhesiones, otros)</label>
+                                <input type="number" class="input_field" id="costo" value="10000" step="500"
+                                    autocomplete="off" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6 wow fadeInRight" data-wow-delay="0.5s">
+                                <label for="exampleInputEmail1">Ciudad</label>
+                                <input type="text" class="input_field" id="ciudad" placeholder="Ciudad" autocomplete="off"
+                                required value="">
+                            </div>
+                            <div class="form-group col-md-6 wow fadeInRight" data-wow-delay="0.5s">
+                                <label for="exampleInputEmail1">Direción (Para Eventos)</label>
+                                <input type="text" class="input_field" id="direccion" placeholder="Dirección"
+                                autocomplete="off" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6 wow fadeInRight" data-wow-delay="0.5s">
+                                <select class="input_field" id="categoria" required>
+                                    <option selected value="no-selected">Seleccione una categoria</option>
+                                    <option value="salud">Salud</option>
+                                    <option value="educacion">Educacion</option>
+                                    <option value="incendios">Incendios</option>
+                                    <option value="otros">Otros</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6 wow fadeInRight" data-wow-delay="0.5s">
+                                <label for="images" class="upload_img">Subir una imagen (requerido)</label>
+                                <input type="file" style="visibility:hidden;"  id="images" accept="image/x-png,image/gif,image/jpeg" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-12 wow fadeInRight" data-wow-delay="0.5s">
+                                <label for="exampleInputEmail1">Describe tu evento</label>
+                                <textarea class="input_field" id="descripcion" autocomplete="off" required rows="8"
+                                    value="" style="height: 150px;" placeholder="Escribe una breve descripción, medios de pago, etc."></textarea>
+                            </div>
+                        </div>
+                        <input type="text" style="visibility: hidden;" class="form-control" id="lat" value="0">
+                        <input type="text" style="visibility: hidden;" class="form-control" id="long" value="0">
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12" data-wow-delay="0.3s" style="padding-bottom: 2%;">
+                        <h4 style="text-align: center;" id="location_error">Selecciona la ubicación del evento</h4>
+
+                        <div id="map"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12" style="text-align: center; padding-bottom: 2%;">
+                            <button class="btn btn-border" style="margin: auto;">
+                                Registrar
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+
+    <script>
+        function initialize() {
+            var options = {
+                types: ['(cities)'],
+                componentRestrictions: {
+                    country: "py"
+                }
+            };
+
+            var input = document.getElementById('ciudad');
+            var autocomplete = new google.maps.places.Autocomplete(input, options);
+        }
+
+        google.maps.event.addDomListener(window, 'load', initialize);
+        let markers = [];
+        let map
+        function initMap() {
+            infoWindow = new google.maps.InfoWindow();
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const pos = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude,
+                        };
+
+                        map = new google.maps.Map(document.getElementById("map"), {
+                            zoom: 15,
+                            center: pos,
+                        });
+                        infoWindow.open(map);
+                        map.addListener("click", (mapsMouseEvent) => {
+                            setMapOnAll(null);
+
+                            addMarker(mapsMouseEvent.latLng);
+                            infoWindow.close();
+                            infoWindow.open(map);
+
+                            document.getElementById('lat').value = mapsMouseEvent.latLng.lat();
+                            document.getElementById('long').value = mapsMouseEvent.latLng.lng();
+                        });
+                    },
+                    () => {
+                        // Asuncion
+                        const pos = {
+                            lat: -25.270389444255976,
+                            lng: -57.57107665560194,
+                        };
+                        map = new google.maps.Map(document.getElementById("map"), {
+                            zoom: 15,
+                            center: pos,
+                        });
+                        infoWindow.open(map);
+                        try {
+                            map.addListener("click", (mapsMouseEvent) => {
+                                setMapOnAll(null);
+                                addMarker(mapsMouseEvent.latLng);
+                                infoWindow.close();
+                                infoWindow.open(map);
+                                
+                                document.getElementById('lat').value = mapsMouseEvent.latLng.lat();
+                                document.getElementById('long').value = mapsMouseEvent.latLng.lng();
+                            });
+                        } catch (e) {
+                            console.error("unexpected error: ", e);
+                            handleLocationError(true, infoWindow, map.getCenter());
+                        }
+                    }
+                );
+            } else {
+                // Browser doesn't support Geolocation
+                handleLocationError(false, infoWindow, map.getCenter());
+            }
+        }
+        function addMarker(location) {
+            const marker = new google.maps.Marker({
+                position: location,
+                map: map,
+            });
+            markers.push(marker);
+        }
+
+        function setMapOnAll(map) {
+            for (let i = 0; i < markers.length; i++) {
+                markers[i].setMap(map);
+            }
+        }
+
+
+        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+            infoWindow.setPosition(pos);
+            infoWindow.setContent(
+                browserHasGeolocation
+                    ? "Error: The Geolocation service failed."
+                    : "Error: Your browser doesn't support geolocation."
+            );
+            infoWindow.open(map);
+        }
+
+
+        $('#evento-form').on('submit', function (event) {
+            event.preventDefault();
+            var fecha = $('input[id=fecha]').val();
+            fecha = fecha == undefined || fecha == null || fecha == "" ? getDateEvent() : fecha;
+            categoria =  document.getElementById("categoria").value;
+
+            categoria = categoria == undefined || categoria == null || fecha == "no-selected" ? "otros" : categoria;
+
+            direccion = $('input[id=direccion]').val();
+            direccion = direccion == undefined || direccion == null ? "no-specified" : direccion;
+            
+            medios = $('input[id=medios]').val();
+            medios = medios == undefined || medios == null ? "no-specified" : medios;
+
+
+            evento= $('input[id=evento]').val();    
+            organizador= $('input[id=organizador]').val();
+            telefono= $('input[id=telefono]').val();
+            meta= $('input[id=meta]').val();    
+            costo= $('input[id=costo]').val();  
+            beneficiario= $('input[id=beneficiario]').val();    
+            // direccion= $('input[id=direccion]').val();  
+            ciudad= $('input[id=ciudad]').val();    
+            descripcion= $('#descripcion').val(); 
+            lat= $('#lat').val();   
+            long= $('#long').val(); 
+
+
+            // document.getElementById('categoria').value = categoria == undefined || categoria == null || fecha == "no-selected" ? "Otros" : categoria;
+            // document.getElementById('fecha').value = fecha == undefined || fecha == null || fecha == "" ? getDateEvent() : fecha;
+            // document.getElementById('direccion').value = direccion == undefined || direccion == null ? "no-specified" : direccion;
+            // document.getElementById('medios').value = medios == undefined || medios == null ? "Efectivo" : medios;
+
+
+
+            if ($('#lat').val() == 0 || $('#long').val() == 0) {
+                // document.getElementById('location_error').innerHTML = 'SELECCIONE UNA UBICACIÓN.';
+                var error_location = document.getElementById("location_error");
+                error_location.className = error_location.className + " error_location";
+                alert('Seleccione su ubicación por favor.');
+                console.error('Location requiered.');
+                return;
+            } else {
+
+                let myForm = document.getElementById('evento-form');
+                var formData = new FormData();
+                formData.append('evento', evento);
+                formData.append('categoria', categoria);
+                formData.append('fecha', fecha);
+                formData.append('direccion', direccion);
+                formData.append('organizador', organizador);
+                formData.append('telefono', telefono);
+                formData.append('medios', medios);
+                formData.append('meta', meta);
+                formData.append('costo', costo);
+                formData.append('beneficiario', beneficiario);
+                formData.append('ciudad', ciudad);
+                formData.append('descripcion', descripcion);
+                formData.append('lat', lat);
+                formData.append('long', long);
+                formData.append('images',  $('#images')[0].files[0]);
+                formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+                // console.log(formData);
+
+                document.getElementById('location_error').innerHTML = '';
+                $.ajax({
+                    type: 'POST',
+                    url: '{% url "crear-evento" %}',
+                    dataType: 'json',
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    // data: {
+                    //     evento: $('input[id=evento]').val(),
+                    //     organizador: $('input[id=organizador]').val(),
+                    //     fecha: fecha,
+                    //     telefono: $('input[id=telefono]').val(),
+                    //     medios: medios,
+                    //     meta: $('input[id=meta]').val(),
+                    //     costo: $('input[id=costo]').val(),
+                    //     beneficiario: $('input[id=beneficiario]').val(),
+                    //     direccion: $('input[id=direccion]').val(),
+                    //     ciudad: $('input[id=ciudad]').val(),
+                    //     descripcion: $('#descripcion').val(),
+                    //     images = imgs,
+                    //     categoria: categoria,
+                    //     lat: $('#lat').val(),
+                    //     long: $('#long').val(),
+                    //     csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                    //     action: 'post'
+                    // },
+                    data: formData,
+                    success: function (json) {
+                        if (json["error"]) {
+                            console.error("Unexpected error ocurred....", json["error"]);
+                            alert("Por favor compruebe que todos los datos sean correctos.");
+                        }
+                        else if(json["url"]){
+                            document.getElementById("evento-form").reset();
+                            // var getUrl = window.location;
+                            // var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+                            // baseUrl = baseUrl.replace('crear-', '');
+                            // console.log(json["url"]);
+                            var baseURL = 'http://www.unidos-por.com/evento';
+                            window.open(baseUrl + '/' + json["url"], "_self");
+                        }
+                    },
+                    error: function (xhr, errmsg, err) {
+                        document.getElementById("evento-form").reset();
+                        var baseURL = 'http://www.unidos-por.com/evento';
+                        window.open(baseUrl, "_self");                    
+                        console.log(xhr.status + ": " + xhr.responseText);
+                    }
+                });
+            }
+
+        });
+        function getDateEvent() {
+            let dateToday = new Date();
+
+            let day = dateToday.getDate();
+            let month = dateToday.getMonth() + 1;
+            //adding 10 year to avoid due date
+            let year = dateToday.getFullYear() + 10;
+
+            month = month < 10 ? "0" + month: month; 
+
+            let fullDate = year + '-' + month + '-' + day;
+            // let fullDate = month  + '-' + day + '-' +  year;
+
+            // let fullDate = new Date(year, month, day);
+            console.log(fullDate);
+            // document.getElementById('fecha').value = fullDate;
+            return fullDate;
+        }
+
+    </script>
+
+    {% endblock page %}

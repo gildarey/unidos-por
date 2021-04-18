@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- TITLE OF SITE -->
+    <title>{% block title %} Unidos {% endblock title %}</title>
+
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="description" content="unidos por py" />
+    <meta name="keywords" content="donaciones, crowfo" />
+    <meta name="developer" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- bootstrapcdn  -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- bootstrapcdn -->
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'principal/css/styles.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'principal/css/responsive.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'principal/css/color/color-4.css' %}" type="text/css" id="color-scheme">
+
+
+
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Khula:300,400,600,700,800%7CRoboto:300,400,400i,500,700,900"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+
+    <!-- FONT ICONS -->
+    <link rel="stylesheet" href="{% static 'principal/icons/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+    <!-- Custom Icon Font -->
+    <link rel="stylesheet" href="{% static 'principal/fonts/flaticon.css' %}">
+
+
+
+    {% block sources %}
+    {% endblock sources %}
+</head>
+{% block body %}
+
+<body>
+    {% endblock body %}
+    <!--
+        |========================
+        |  NAV
+        |========================
+        -->
+    <header id="ch-home" class="ch-header">
+        <div class="main-navigation">
+            <nav class="navbar navbar-fixed-top nav-scroll">
+                <div class="container">
+                    <div class="row">
+                        <div class="collapse navbar-collapse" id="js-navbar-menu">
+                            <ul class="nav navbar-nav navbar-right ep-mobile-menu" id="navbar-nav">
+
+                                {% if current_page == "home" %}
+                                <li class="active"><a href='{% url "index" %}'>Inicio</a><span></span></li>
+                                <li><a href='{% url "about" %}'>Sobre el Proyecto</a><span></span></li>
+                                <li><a href='{% url "crear-evento" %}'>Registrar Eventos</a><span></span></li>
+                                {% elif current_page == "about" %}
+                                <li><a href='{% url "index" %}'>Inicio</a><span></span></li>
+                                <li class="active"><a href='{% url "about" %}'>Sobre el Proyecto</a><span></span></li>
+                                <li><a href='{% url "crear-evento" %}'>Registrar Eventos</a><span></span></li>
+                                {% elif current_page == "form" %}
+                                <li><a href='{% url "index" %}'>Inicio</a><span></span></li>
+                                <li><a href='{% url "about" %}'>Sobre el Proyecto</a><span></span></li>
+                                <li class="active"><a href='{% url "crear-evento" %}'>Registrar Eventos</a><span></span>
+                                </li>
+                                {% elif current_page == "events" %}
+                                <li><a href='{% url "index" %}'>Inicio</a><span></span></li>
+                                <li><a href='{% url "about" %}'>Sobre el Proyecto</a><span></span></li>
+                                <li><a href='{% url "crear-evento" %}'>Registrar Eventos</a><span></span></li>
+                                {% else %}
+                                <li><a href='{% url "index" %}'>Inicio</a><span></span></li>
+                                <li><a href='{% url "about" %}'>Sobre el Proyecto</a><span></span></li>
+                                <li><a href='{% url "crear-evento" %}'>Registrar Eventos</a><span></span></li>
+                                {% endif %}
+
+
+                                <li class="dropdown">
+                                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                        aria-haspopup="true" aria-expanded="false">Eventos<span
+                                            class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <!-- iterate for categories -->
+                                        <li> <a href='{% url "eventos" %}'>Eventos</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav><!-- /.navbar -->
+        </div>
+    </header>
+    <!-- Mobile Menu-->
+    <div class="menu-spacing visible-xs">
+        <div class="mobile-menu-area visible-xs visible-sm">
+            <div class="mobile-menu">
+                <div class="row" style="padding-top: 5%;">
+                    <div class="col-xs-3">
+                        <a href='{% url "index" %}'>Inicio</a>
+                    </div>
+                    <div class="col-xs-3">
+                        <a href='{% url "about" %}'>El Proyecto</a>
+                    </div>
+                    <div class="col-xs-3">
+                        <a href='{% url "crear-evento" %}'>Registrar</a>
+                    </div>
+                    <div class="col-xs-3">
+                        <a href='{% url "eventos" %}'>Eventos</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% block page %}
+
+    <section class="header-slider header-slider-preloader" id="header-slider">
+        <div class="animation-slides owl-carousel owl-theme" id="animation-slide">
+            <!--Slide 1-->
+            <div style="background-image:url('https://cdn.pixabay.com/photo/2017/02/10/12/03/volunteer-2055015__340.png')"
+                class="item">
+                <div class="slide-table">
+                    <div class="slide-tablecell">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <div class="slide-text">
+                                        <h1>Unidos por...</h1>
+                                        <p>La nueva plataforma para recaudar fondos. Registrá tu evento y
+                                            compartilo.</p>
+                                        <div class="slide-buttons">
+                                            <a href='{% url "eventos" %}' class="slide-btn btn btn-border">Ver
+                                                Eventos</a>
+                                            <a href='{% url "crear-evento" %}'
+                                                class="slide-btn btn btn-border">Registrar Evento</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+    <section class="section bg-2" id="ch-service">
+        <div class="container">
+            <div class="row section-separator">
+                <div class="col-md-3 col-sm-6 wow fadeInRight" data-wow-delay="0.3s">
+                    <div class="each-features">
+                        <div class="features-inner">
+                            <div class="each-details center">
+                                <i style="font-size: 3rem;" class="fa fa-stethoscope"></i>
+                                <h3>Salud</h3>
+                                <a href='{% url "eventos" %}?categoria=salud' class="btn btn-fill">Ir a donar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 wow fadeInRight" data-wow-delay="0.6s">
+                    <div class="each-features">
+                        <div class="features-inner">
+                            <div class="each-details center">
+                                <i style="font-size: 3rem;" class="fa fa-calendar"></i>
+                                <h3>Eventos</h3>
+                                <a href='{% url "eventos" %}?categoria=otros' class="btn btn-fill">Ir a donar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 wow fadeInRight" data-wow-delay="0.9s">
+                    <div class="each-features">
+                        <div class="features-inner">
+                            <div class="each-details center">
+                                <i style="font-size: 3rem;" class="fa fa-graduation-cap"></i>
+                                <h3>Educación</h3>
+                                <a href='{% url "eventos" %}?categoria=educacion' class="btn btn-fill">Ir a donar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 wow fadeInRight" data-wow-delay="0.9s">
+                    <div class="each-features">
+                        <div class="features-inner">
+                            <div class="each-details center">
+                                <i style="font-size: 3rem;" class="fa flaticon-fire"></i>
+                                <h3>Incendios</h3>
+                                <a href='{% url "eventos" %}?categoria=incendios' class="btn btn-fill">Ir a donar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section ch-causes main-color-bg ch-donation-causes-grid" id="ch-causes">
+        <div class="container">
+            <div class="row section-separator">
+                <div class="section-title">
+                    <h2 class="wow fadeInRight" data-wow-delay="0.3s">Tu ayuda es IMPORTANTE</h2>
+                </div>
+                <div class="each-causes">
+
+                    {% for evento in records %}
+                    <div class="col-md-4 col-sm-6 wow fadeInRight" data-wow-delay="0.3s">
+                        <div class="cause-inner white-bg">
+                            {% if detalle.image %}
+                            <img src="{{ detalle.image.url }}" alt="{{ detalle.evento }}" class="img-responsive">
+                            {% endif %}
+
+                            <div class="cause-inner-content">
+                                <h4>{{ evento.evento }}</h4>
+                                <h6>#unidospor {{ evento.beneficiario }}</h6>
+                                <div class="fund-circle"> <h5>Costo:
+                                        <span class="amount main-color">Gs. {{ evento.costo }}</span></h5></div>
+                                <!-- <span class="progress-val">84%</span> -->
+                                <!-- <div class="fund-process">
+                                    <div class="progress">
+                                        <div class="progress-bar" style="width: 80%">
+
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <h6>¡Ayuda a {{ evento.beneficiario }} a llegar a su meta!</h6>
+                                <a href='/evento/{{evento.url}}' class="btn btn-border"  style="text-align: center;">Ver detalles</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% if records %}
+            <div class="row">
+                <div class="col-md-12 col-sm-12" style="text-align: right;">
+                    <a href='{% url "eventos" %}' class="btn btn-border">Ver más</a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </section>
+
+
+    <section class="section ch-join">
+        <div class="container">
+            <div class="row section-separator">
+                <div class="table-display">
+                    <div class="join-content col-md-8 wow fadeInRight">
+                        <h3>Registra tu evento gratis</h3>
+                        <p>Registra tu evento y compartilo.</p>
+                    </div>
+                    <div class="join-btn col-md-4 wow fadeInLeft">
+                        <a href='{% url "crear-evento" %}' class="btn btn-fill">Registrar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% endblock page %}
+    <footer class="section ch-footer footer-bg" id="ch-footer">
+        <div class="container">
+        </div>
+
+        <hr class="ch-hr">
+
+        <div class="container">
+            <div class="row mini-separator">
+                <div class="copyright">
+
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="coptyright-content">
+                            <p>
+                                Aporta y encontra el proyecto en <a href="https://github.com/gildarey"
+                                    target="_blank">unidos-por</a> | <a href="https://twitter.com/reygilda">Gilda
+                                    Rey</a>. &#169; 2021</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- mean menu nav-->
+    <script src="{% static 'principal/plugins/js/meanmenu.js' %}"></script>
+    <!-- ajaxchimp -->
+    <script src="{% static 'principal/plugins/js/jquery.ajaxchimp.min.js' %}"></script>
+    <!-- wow -->
+    <script src="{% static 'principal/plugins/js/wow.min.js' %}"></script>
+    <!-- Fancybox js-->
+    <script src="{% static 'principal/plugins/js/jquery.fancybox.pack.js' %}"></script>
+    <!---->
+    <script src="{% static 'principal/plugins/js/countUp.min.js' %}"></script>
+    <!---->
+    <script src="{% static 'principal/plugins/js/owl.carousel.js' %}"></script>
+    <!--validator -->
+    <script src="{% static 'principal/plugins/js/validator.min.js' %}"></script>
+    <!--smooth scroll-->
+    <script src="{% static 'principal/plugins/js/smooth-scroll.js' %}"></script>
+    <!-- init -->
+    <script src="{% static 'principal/js/init.js' %}"></script>
+
+</body>
+
+</html>
