@@ -1,0 +1,153 @@
+{% extends 'index.html' %}
+{% block title %}
+Reoprtar un problema
+{% endblock title %}
+{% block sources %}
+<!-- ajax -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<style type="text/css">
+    .input_field {
+        display: block;
+        width: 100%;
+        height: 54px;
+        padding: 6px 12px;
+        font-size: 16px;
+        line-height: 27px;
+        color: #000;
+        /* font-weight: 600; */
+        background-color: transparent;
+        background-image: none;
+        border: none;
+        border-radius: 0px;
+        border-bottom: 2px solid #e2e2e2;
+        border-color: #e2e2e2;
+    }
+</style>
+{% endblock sources %}
+</head>
+
+{% block body %}
+<!-- d-flex h-100 text-center  -->
+
+<body>
+    {% endblock body %}
+    {% block page %}
+    <section class="section" style="padding-top: 5%;">
+        <div class="container shadow contact-form">
+            <div class="row">
+                <form class="validate-form " method="POST" id="evento-form">
+                    {% csrf_token %}
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-12 col-sm-12 col-xs-12" style="text-align: center; padding-bottom: 2%;">
+                            <h2 data-wow-delay="0.2s">Reportar problema</h2>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6 wow fadeInRight" data-wow-delay="0.5s">
+                                <label for="nombre">Nombre y Apellido</label>
+                                <input class="input_field" type="text" name="nombre" id="nombre" autocomplete="off"
+                                    placeholder="Tu nombre..." value="" required label="Nombre*">
+                            </div>
+                            <div class="form-group col-md-6 wow fadeInRight" data-wow-delay="0.5s">
+                                <label for="email">Email</label>
+                                <input class="input_field" type="email" name="email" id="email" autocomplete="off"
+                                    placeholder="tuemail@email.com..." value="" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-12 wow fadeInRight" data-wow-delay="0.5s">
+                                <label for="telefono">Teléfono de contacto</label>
+                                <input type="phone" class="input_field" id="telefono" autocomplete="off" required
+                                    value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-12 wow fadeInRight" data-wow-delay="0.5s">
+                                <label for="asunto">Asunto</label>
+                                <input type="text" class="input_field" id="asunto" autocomplete="off" required value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-12 wow fadeInRight" data-wow-delay="0.5s">
+                                <label for="exampleInputEmail1">Describe el problema</label>
+                                <textarea class="input_field" id="descripcion" autocomplete="off" required rows="8"
+                                    value="" style="height: 150px;"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="message-div" style="visibility: hidden;">
+                        <div class="col-md-12 col-sm-12 col-xs-12" style="text-align: center; padding-bottom: 2%; color: #3cb878;">
+                            <h5 id="message">
+                                ¡Su mensaje ha sido enviado con éxito! Nos pondremos en contacto lo antes posible.
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12" style="text-align: center; padding-bottom: 2%;">
+                            <button class="btn btn-border" style="margin: auto;">
+                                Enviar
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+
+    <script>
+
+        $('#evento-form').on('submit', function (event) {
+            event.preventDefault();
+
+            nombre = $('input[id=nombre]').val();
+            email = $('input[id=email]').val();
+            telefono = $('input[id=telefono]').val();
+            asunto = $('input[id=asunto]').val();
+            descripcion = $('#descripcion').val();
+
+
+            let myForm = document.getElementById('evento-form');
+            var formData = new FormData();
+
+
+            formData.append('nombre', nombre);
+            formData.append('email', email);
+            formData.append('descripcion', descripcion);
+            formData.append('asunto', asunto);
+            formData.append('telefono', telefono);
+
+            document.getElementById("message-div").style.visibility = "visible";
+
+            formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+            // console.log(formData);
+            $.ajax({
+                type: 'POST',
+                url: '{% url "reportar" %}',
+                dataType: 'json',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: formData,
+                success: function (json) {
+                    if (json["error"]) {
+                        document.getElementById("evento-form").reset();
+                        // console.error("Unexpected error ocurred....", json["error"]);
+                    }
+                    else {
+                        document.getElementById("evento-form").reset();
+                    }
+                },
+                error: function (xhr, errmsg, err) {
+                    document.getElementById("evento-form").reset();
+                    var baseURL = 'http://www.unidos-por.com/';
+                    window.open(baseURL, "_self");
+                    // console.log(xhr.status + ": " + xhr.responseText);
+                }
+            });
+
+        });
+
+    </script>
+
+    {% endblock page %}

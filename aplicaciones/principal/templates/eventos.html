@@ -32,7 +32,7 @@ Eventos
 
           <div class="ch-sidebar-event ch-event shadow ch-sidebar-widget wow fadeInRight" data-wow-delay="0.8s"
             style="height: 90hv;">
-            <div class="table-display" style="padding-top: 2%;">
+            <!-- <div class="table-display" style="padding-top: 2%;">
               <div class="join-content col-md-8 wow fadeInRight">
                 <input type="text" name="name" class="form-control" id="name"
                   placeholder="Buscar evento, organizador, ciudad..." required="">
@@ -40,7 +40,8 @@ Eventos
               <div class="join-btn col-md-4 wow fadeInLeft">
                 <a href='#' class="btn btn-fill">Buscar</a>
               </div>
-            </div>
+            </div> -->
+
             <ul>
               {% for evento in records %}
               <li class="event-content"
@@ -48,11 +49,11 @@ Eventos
                 <div class="row">
                   <div class="col-md-4 col-sm-4">
                     {% if evento.image %}
-                    <img src="{{ evento.image.url }}" alt="{{ evento.evento }}" style="max-width: 100%;">
+                    <img src="{{ evento.image.url }}" alt="{{ evento.evento }}" style="max-width: 80%;">
                     {% endif %}
                   </div>
                   <div class="col-md-8 col-sm-8">
-                    <h4> <a href='/evento/{{evento.url}}'> {{ evento.evento }} </a>  </h4>
+                    <h4> <a href='/evento/{{evento.url}}' style="color: #3cb878;"> {{ evento.evento }} </a> </h4>
                     <h6>#unidospor {{ evento.beneficiario }}</h6>
                     <div class="schedule">
                       <span class="event-time">Meta: {{ evento.meta }}</span>
@@ -63,6 +64,15 @@ Eventos
               </li>
               {% endfor %}
             </ul>
+
+            <ul class="pagination" style="color: #3cb878;">
+              <!-- <li><a href="#">&laquo;</a></li> -->
+              <li class="disabled"><span>&laquo;</span></li>
+              <li class="disabled"><span>1</span></li>
+              <li class="disabled"><a href="#">2</a></li>
+              <!-- <li><a href="#">&raquo;</a></li> -->
+              <li class="disabled"><span>&raquo;</span></li>
+            </ul>
           </div>
         </aside>
         <!-- </div> -->
@@ -70,7 +80,20 @@ Eventos
     </div>
   </section>
 
-
+  <section class="section ch-join main-color-bg">
+    <div class="container">
+        <div class="row section-separator">
+            <div class="table-display">
+                <div class="join-content col-md-8 wow fadeInRight">
+                    <h3>Reportar un problema</h3>
+                </div>
+                <div class="join-btn col-md-4 wow fadeInLeft">
+                    <a href='{% url "reportar" %}' class="btn btn-fill">Reportar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section> 
 
   <script src="https://maps.googleapis.com/maps/api/js?key={{google_api}}&callback=initMap&libraries=&v=weekly"
     async></script>
@@ -129,7 +152,7 @@ Eventos
               zoom: 15,
               center: pos,
             });
-            
+
             try {
 
               var infoWindow = new google.maps.InfoWindow({
@@ -149,6 +172,18 @@ Eventos
       } else {
         // Browser doesn't support Geolocation
         handleLocationError(false, infoWindow, map.getCenter());
+      }
+
+      try {
+        var elements = document.querySelectorAll('img');
+
+        elements.forEach(function (userItem) {
+          const file = userItem.src;
+          const newFile = file.substr(0, file.indexOf('?'));
+          userItem.src = newFile;
+        });
+      } catch (e) {
+        console.error("Unexpected error ocurred.", e);
       }
     }
 

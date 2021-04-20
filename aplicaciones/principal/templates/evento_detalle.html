@@ -18,19 +18,24 @@ Eventos
     {% endblock body %}
     {% block page %}
     <div class="container">
-        <h3>
-            {{detalle.evento}}
-        </h3>
+        <div class="row">
+            <div class="col-sm-12 col-xs-12">
+
+                <h3>
+                    {{detalle.evento}}
+                </h3>
+            </div>
+        </div>
         <div class="row">
             <div class="col-sm-6" style="height: 40vh;">
-                <!-- {% if detalle.image %}
-                <img src="{{ detalle.image.url }}" alt="{{ detalle.evento }}" style="max-width: 80%;">
-                {% else %} -->
+                {% if detalle.image %}
+                <img src="{{ detalle.image.url }}" alt="{{ detalle.evento }}" style="max-width: 100%; height: 100%;" id="img-evento">
+                {% else %}
                 <h4 class="align-text-bottom border border-dark"
                     style="padding: 17vh 0;margin: auto; text-align: center;   text-transform: uppercase;">
                     No contiene imagen
                 </h4>
-                <!-- {% endif %} -->
+                {% endif %}
             </div>
             <div class="col-sm-6 " style="height: 50vh;">
                 <div class="row detail">
@@ -111,20 +116,26 @@ Eventos
                 </div>
             </div>
         </div>
-        <div class="row  align-top">
-            <div class="col-sm" style="height: 45vh;">
+        <div class="row" style="max-width: 100%;">
+            <div class="col-sm-12" >
                 <h4>
                     Descripción
                 </h4>
-                <p style='white-space:pre; text-align: justify;'>
+                <p style='white-space: pre-wrap; text-align: justify;'>
                     {{detalle.descripcion}}
                 </p>
-                <p class="lead">
-                    <a href='#' class="btn btn-fill disabled" aria-disabled="true" role="button"
-                        data-bs-toggle="button">Donar</a>
-                    <a href='#' class="btn btn-border" onclick="copyLink()">Copiar Enlace</a>
-                    <a href='#' onclick="openMap()" class="btn btn-fill">Ver Ubicación</a>
-                </p>
+            </div>
+        </div>
+        <div class="row" style="padding-bottom: 2%;">
+            <!-- <div class="col-sm-6" >
+                <a href='#' class="btn btn-fill disabled" aria-disabled="true" role="button"
+                            data-bs-toggle="button">Donar</a>
+            </div> -->
+            <div class="col-sm-6 col-xs-12" >
+                <a href='#' class="btn btn-border" onclick="copyLink()">Copiar Enlace</a>
+            </div>
+            <div class="col-sm-6 col-xs-12" >
+                <a href='#' onclick="openMap()" class="btn btn-fill">Ver Ubicación</a>
             </div>
         </div>
     </div>
@@ -181,6 +192,9 @@ Eventos
             const costo = numberFormat.format(parseFloat("{{detalle.costo}}"));
             const meta = numberFormat.format(parseFloat("{{detalle.meta}}"));
 
+            const file = document.getElementById("img-evento").src;
+            const newFile = file.substr(0, file.indexOf('?'));
+            document.getElementById("img-evento").src = newFile;
             document.getElementById('meta').innerHTML = "<strong> META: </strong>"  + meta;
             document.getElementById('costo').innerHTML = "<strong>  Costo: </strong>"  + costo;
         }

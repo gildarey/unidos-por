@@ -19,12 +19,12 @@ Unidos
                 </div>
                 <div class="ch-mission-content">
                     <div class="two-column-content col-md-12 col-sm-12 wow fadeInRight" data-wow-delay="0.6s">
-                        <h4>
+                        <h6>
                             <strong>UNIDOS</strong> es un proyecto para recaudar fondos, apoyando eventos en distintas áreas.
                             En <strong>UNIDOS</strong> puedes crear tus eventos y compartirlos para recibir apoyo y donaciones.
 
 
-                        </h4>
+                        </h6>
                     </div>
                     <!-- <div class="two-column-content col-md-6 col-sm-6 wow fadeInRight" data-wow-delay="0.9s">
                         <div class="inner" style="background-image: url(assets/images/hand.jpg);"></div>
@@ -34,13 +34,24 @@ Unidos
         </div>
     </section>
 
-    <!-- <section class="section ch-mission bg-2" id="ch-mission">
+    <section class="section ch-mission bg-2" id="ch-mission">
         <div class="container">
             <div class="row section-separator">
                 <div class="section-title">
                     <h2 class="wow fadeInRight" data-wow-delay="0.3s"><span>unidos por</span> una causa</h2>
                 </div>
                 <div class="ch-mission-content">
+                    <div class="col-md-4 col-sm-4 mission-item wow fadeInRight" data-wow-delay="0.9s">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-3 icon">
+                                <i style="font-size: 3rem;" class="fa main-color flaticon-rocket-launch"></i>
+                            </div>
+                            <div class="col-md-9 col-sm-9 padding-left-o">
+                                <h4 class="margin-top-o">Unidos</h4>
+                                <p>Unidos es un poryecto open source que nace con la idea de apoyar a eventos benéficos, ofreciendo un espacio de difusión y consulta de informaciones.</p>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-md-4 col-sm-4 mission-item wow fadeInRight" data-wow-delay="0.3s">
                         <div class="row">
                             <div class="col-md-3 col-sm-3 icon ">
@@ -48,9 +59,7 @@ Unidos
                             </div>
                             <div class="col-md-9 col-sm-9 padding-left-o">
                                 <h4 class="margin-top-o">Nuestra misión</h4>
-                                <p>Cras venenatis nibh sed velit posuere
-                                    pharetra. Donec sit amet magna vel v
-                                    elit gravida lobortis auctor sed dui.</p>
+                                <p>Proveer una plataforma alternativa de difusión y consulta para recaudación de fondos. </p>
                             </div>
                         </div>
                     </div>
@@ -61,29 +70,14 @@ Unidos
                             </div>
                             <div class="col-md-9 col-sm-9 padding-left-o">
                                 <h4 class="margin-top-o">Nuestra visión</h4>
-                                <p>Cras venenatis nibh sed velit posuere
-                                    pharetra. Donec sit amet magna vel v
-                                    elit gravida lobortis auctor sed dui.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-4 mission-item wow fadeInRight" data-wow-delay="0.9s">
-                        <div class="row">
-                            <div class="col-md-3 col-sm-3 icon">
-                                <i style="font-size: 3rem;" class="fa main-color flaticon-rocket-launch"></i>
-                            </div>
-                            <div class="col-md-9 col-sm-9 padding-left-o">
-                                <h4 class="margin-top-o">El Proyecto</h4>
-                                <p>Cras venenatis nibh sed velit posuere
-                                    pharetra. Donec sit amet magna vel v
-                                    elit gravida lobortis auctor sed dui.</p>
+                                <p>Ser el sitio oficial para recaudación de fondos y donaciones dentro del territorio paraguayo.</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section> -->
+    </section>
     <section class="section ch-join main-color-bg">
         <div class="container">
             <div class="row section-separator">
@@ -94,6 +88,21 @@ Unidos
                     </div>
                     <div class="join-btn col-md-4 wow fadeInLeft">
                         <a href='{% url "crear-evento" %}' class="btn btn-fill">Registrar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section ch-join">
+        <div class="container">
+            <div class="row section-separator">
+                <div class="table-display">
+                    <div class="join-content col-md-8 wow fadeInRight">
+                        <h3>Reportar un problema</h3>
+                    </div>
+                    <div class="join-btn col-md-4 wow fadeInLeft">
+                        <a href='{% url "reportar" %}' class="btn btn-fill">Reportar</a>
                     </div>
                 </div>
             </div>

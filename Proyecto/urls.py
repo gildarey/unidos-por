@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from aplicaciones.principal.views import inicio
-from aplicaciones.principal.views import getEventos, eventos, evento_detail, about
+from aplicaciones.principal.views import getEventos, eventos, evento_detail, about, reportar
 from aplicaciones.principal.views import crearEvento
 from django.conf.urls.static import static
 from django.contrib.staticfiles import views
@@ -29,6 +29,7 @@ urlpatterns = [
     # path('eventos/<slug:categoria>/', eventos),
     path('getEventos', getEventos, name= 'getEventos'),
     path('crear-evento', crearEvento, name= 'crear-evento'),
+    path('reportar', reportar, name= 'reportar'),
     path('evento/<str:id>', evento_detail, name = 'evento'),
     path('about', about, name = 'about'),
     path('static', views.serve),
