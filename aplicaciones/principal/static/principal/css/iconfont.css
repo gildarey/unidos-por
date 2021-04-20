@@ -1,0 +1,57 @@
+@font-face {
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="lb-icon-"], [class*=" lb-icon-"] {
+  /* use !important to prevent issues with browser extensions that change ../fonts */
+
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.lb-icon-eject:before {
+  content: "\e900";
+}
+.lb-icon-home:before {
+  content: "\e901";
+}
+.lb-icon-notebook-of-spring-with-lines-page:before {
+  content: "\e902";
+}
+.lb-icon-user:before {
+  content: "\e903";
+}
+.lb-icon-hot-drink:before {
+  content: "\e904";
+}
+.lb-icon-like:before {
+  content: "\e905";
+}
+.lb-icon-pie-chart:before {
+  content: "\e906";
+}
+.lb-icon-parachute:before {
+  content: "\e907";
+}
+.lb-icon-flag:before {
+  content: "\e908";
+}
+.lb-icon-locked:before {
+  content: "\e909";
+}
+.lb-icon-television:before {
+  content: "\e90a";
+}
+.lb-icon-clock:before {
+  content: "\e90b";
+}
+

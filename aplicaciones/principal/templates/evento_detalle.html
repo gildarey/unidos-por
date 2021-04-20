@@ -23,14 +23,14 @@ Eventos
         </h3>
         <div class="row">
             <div class="col-sm-6" style="height: 40vh;">
-                {% if detalle.image %}
+                <!-- {% if detalle.image %}
                 <img src="{{ detalle.image.url }}" alt="{{ detalle.evento }}" style="max-width: 80%;">
-                {% else %}
+                {% else %} -->
                 <h4 class="align-text-bottom border border-dark"
                     style="padding: 17vh 0;margin: auto; text-align: center;   text-transform: uppercase;">
                     No contiene imagen
                 </h4>
-                {% endif %}
+                <!-- {% endif %} -->
             </div>
             <div class="col-sm-6 " style="height: 50vh;">
                 <div class="row detail">
@@ -116,7 +116,7 @@ Eventos
                 <h4>
                     Descripción
                 </h4>
-                <p>
+                <p style='white-space:pre; text-align: justify;'>
                     {{detalle.descripcion}}
                 </p>
                 <p class="lead">
@@ -142,9 +142,13 @@ Eventos
 
         function copyLink() {
             try {
+                var baseURL = 'http://www.unidos-por.com';
+
                 var getUrl = window.location;
                 getUrl = getUrl.protocol + "/" + getUrl.host + getUrl.pathname;
-
+                if(getUrl.includes("http:/proyectofirst.herokuapp.com")){
+                    getUrl = getUrl.replace('http:/proyectofirst.herokuapp.com', baseURL);
+                }
 
                 var textArea = document.createElement("textarea");
                 textArea.value = getUrl;

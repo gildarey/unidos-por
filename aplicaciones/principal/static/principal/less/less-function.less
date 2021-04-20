@@ -1,0 +1,180 @@
+// Less Function:
+//==================================
+
+.text-shadow( @value: 0 0 0 #FFFFFF, @important: ~""){
+    -webkit-text-shadow:    @value @important;
+    -moz-text-shadow:       @value @important;
+    -ms-text-shadow:        @value @important;
+    -o-text-shadow:         @value @important;
+    text-shadow:            @value @important;
+}
+
+.box-shadow( @value: 0 0 0 #FFFFFF, @important: ~"" ){
+    -webkit-box-shadow:     @value @important;
+    -moz-box-shadow:        @value @important;
+    -ms-box-shadow:         @value @important;
+    -o-box-shadow:          @value @important;
+    box-shadow:             @value @important;
+}
+// .box-shadow(0 13px 42px 0 fade(@shadow-color, 25%));
+
+.border-radius( @value: 0, @important: ~""  ){
+    -webkit-border-radius:  @value @important;
+    -moz-border-radius:     @value @important;
+    -ms-border-radius:      @value @important;
+    -o-border-radius:       @value @important;
+    border-radius:          @value @important;
+}
+
+
+.background-image( @images-name, @repeat: no-repeat, @bg-att: initial, @bg-size: cover, @bg-c: #fff, @positionX: 50%, @positionY: 50% ){
+    background-image:           url(@images-name);
+    -webkit-background-size:    @bg-size;
+    -moz-background-size:       @bg-size;
+    -ms-background-size:        @bg-size;
+    -o-background-size:         @bg-size;
+    background-size:            @bg-size;
+    background-position:        @positionX @positionY;
+    background-attachment:      @bg-att;
+    background-repeat:          @repeat;
+    background-color:           @bg-c;
+}
+//.background-image( @images-name: '../images/background-1.jpg', @repeat: no-repeat );
+
+.transform( @value: 0.4s, @important: ~"" ) {
+    -webkit-transform:          @value @important;
+    -moz-transform:             @value @important;
+    -ms-transform:              @value @important;
+    -o-transform:               @value @important;
+    transform:                  @value @important;
+}
+//.transform( translate3d(-50%, 50%, 0) );
+
+.transition( @value: 200ms, @direction: ease-out ){
+    -webkit-transition:         all @value @direction;
+    -moz-transition:            all @value @direction;
+    -o-transition:              all @value @direction;
+    -ms-transition:             all @value @direction;
+    transition:                 all @value @direction;
+    .font-smoothing();
+}
+//.transition( 0.4s );
+
+.transform-style( @value: preserve-3d, @important: ~"" ) {
+    -webkit-transform-style:    @value @important;
+    -moz-transform-style:       @value @important;
+    -o-transform-style:         @value @important;
+    -ms-transform-style:        @value @important;
+    transform-style:            @value @important;
+}
+
+.transition-delay( @value, @important: ~"" ) {
+    -webkit-transition-delay:   @value @important;
+    -moz-transition-delay:      @value @important;
+    -o-transition-delay:        @value @important;
+    transition-delay:           @value @important;
+}
+
+.transform-origin( @x: 0, @y: 0 ) {
+    -webkit-transform-origin:   @x @y;
+    -moz-transform-origin:      @x @y;
+    -ms-transform-origin:       @x @y;
+    -o-transform-origin:        @x @y;
+    transform-origin:           @x @y;
+}
+.transform-mix( @translateX: 0, @translateY: 0, @translateZ: 0, @rotate: 0deg, @scale: 1 ) {
+    transform: translateX( @translateX ) translateY( @translateY ) translateZ( @translateZ ) rotate( @rotate ) scale( @scale );
+    -o-transform: translateX( @translateX ) translateY( @translateY ) translateZ( @translateZ ) rotate( @rotate ) scale( @scale );
+    -ms-transform: translateX( @translateX ) translateY( @translateY ) translateZ( @translateZ ) rotate( @rotate ) scale( @scale );
+    -moz-transform: translateX( @translateX ) translateY( @translateY ) translateZ( @translateZ ) rotate( @rotate ) scale( @scale );
+    -webkit-transform: translateX( @translateX ) translateY( @translateY ) translateZ( @translateZ ) rotate( @rotate ) scale( @scale );
+}
+
+.font-smoothing() {
+    -webkit-font-smoothing:     antialiased;
+    -moz-osx-font-smoothing:    grayscale;
+}
+
+// INPUT FORM PLACEHOLDER COLOR   
+.placeholder-color( @value, @important: ~"" ) {
+    &::-webkit-input-placeholder {
+        color:              @value @important;
+    }
+    &:-moz-placeholder {
+        color:              @value @important;
+    }
+    &::-moz-placeholder {
+        color:              @value @important;
+    }
+    &:-ms-input-placeholder {
+        color:              @value @important;
+    }
+}
+
+
+// MIXINS COLOR GRADIENT
+.color-gradient(@color-1: @main-color-2, @color-2: @main-color-3, @rotate: 90deg, @alpha: 1, @ratio-1: 0%, @ratio-2: 100%) {
+    background-image: -webkit-linear-gradient(
+        90deg, 
+        rgba(red(@color-1), green(@color-1), blue(@color-1), @alpha) @ratio-1, 
+        rgba(red(@color-2), green(@color-2), blue(@color-2), @alpha) @ratio-2
+    );
+    background-image: -moz-linear-gradient(
+        90deg, 
+        rgba(red(@color-1), green(@color-1), blue(@color-1), @alpha) @ratio-1, 
+        rgba(red(@color-2), green(@color-2), blue(@color-2), @alpha) @ratio-2
+    );
+    background-image: -ms-linear-gradient(
+        90deg, 
+        rgba(red(@color-1), green(@color-1), blue(@color-1), @alpha) @ratio-1, 
+        rgba(red(@color-2), green(@color-2), blue(@color-2), @alpha) @ratio-2
+    );
+    background-image: -o-linear-gradient(
+        90deg, 
+        rgba(red(@color-1), green(@color-1), blue(@color-1), @alpha) @ratio-1, 
+        rgba(red(@color-2), green(@color-2), blue(@color-2), @alpha) @ratio-2
+    );
+    background-image: linear-gradient(
+        0deg, 
+        rgba(red(@color-1), green(@color-1), blue(@color-1), @alpha) @ratio-1, 
+        rgba(red(@color-2), green(@color-2), blue(@color-2), @alpha) @ratio-2
+    );
+}
+
+
+.animation-tool( @class-name, @animation-style: preserve-3d, @duration: 2s ) {
+    -webkit-transform-style: @animation-style;
+    -moz-transform-style: @animation-style;
+    -ms-transform-style: @animation-style;
+    -o-transform-style: @animation-style;
+    transform-style: @animation-style;
+
+    -webkit-animation-name: @class-name;
+    -moz-animation-name: @class-name;
+    -ms-animation-name: @class-name;
+    -o-animation-name: @class-name;
+    animation-name: @class-name;
+
+    -webkit-animation-duration: @duration;
+    -moz-animation-duration: @duration;
+    -ms-animation-duration: @duration;
+    -o-animation-duration: @duration;
+    animation-duration: @duration;
+
+    -webkit-animation-iteration-count: infinite;
+    -moz-animation-iteration-count: infinite;
+    -ms-animation-iteration-count: infinite;
+    -o-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+
+    -webkit-animation-timing-function: linear;
+    -moz-animation-timing-function: linear;
+    -ms-animation-timing-function: linear;
+    -o-animation-timing-function: linear;
+    animation-timing-function: linear;
+
+}
+
+.defult( @property, @value ) {
+    @{property}: @value;
+}

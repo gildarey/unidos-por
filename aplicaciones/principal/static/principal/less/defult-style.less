@@ -1,0 +1,947 @@
+
+/**
+ * -------------------
+ *  Defult CSS 
+ * -------------------
+ */
+ html {
+     text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+ }
+body{
+    font-family:            @font-2;
+    font-size:              16px;
+    font-style:             none;
+    line-height:            26px;
+    font-weight:            400;
+    overflow-x:             hidden !important;
+    text-align:             left;
+    position:               relative;
+    background-color:       @white;
+}
+
+
+.nav li a {
+    text-decoration:    none !important;
+    display:            inline-block;
+    cursor:             pointer;
+    font-family:        @font-2;
+    padding:            0px;
+    background-color: transparent;
+    .transition(0.4s);
+
+    &:hover {
+        // color: @main-color-1;
+        background-color: transparent;
+    }
+
+    &:focus {
+        background-color: transparent;
+        outline: 0 !important;
+    }
+}
+a {
+    text-decoration:    none !important;
+    cursor:             pointer;
+    font-family:        @font-2;
+    padding:            0px;
+    background-color: transparent;
+    .transition(0.4s);
+    color: @black;
+    opacity: 0.9;
+
+    &:hover {
+        // color: @main-color-1;
+        background-color: transparent;
+    }
+
+    &:focus {
+        background-color: transparent;
+        outline: 0 !important;
+    }
+}
+
+.center {
+    float: none;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/**
+ * ---------------------
+ *  Defult Halping Class
+ * ---------------------
+ */
+.overflow{
+    overflow:           hidden;
+}
+
+.relative {
+    position: relative;
+}
+
+.display-table {
+    display: table;
+    width: 100%;
+    height: 100%;
+}
+
+.display-flex {
+    display: flex;
+    flex: 1;
+}
+
+.vertical-middle {
+    display: table-cell;
+    float: none;
+    vertical-align: middle;
+}
+
+
+
+/**
+ * --------------------------------------
+ *  Video Section Background Defult Style
+ * --------------------------------------
+ */
+.section-video { 
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    min-height: 100%;
+    min-width: 100%;
+    overflow: hidden;
+    z-index: -1;
+
+    .bgvid {
+        position: absolute;
+        top: 0;
+        left: 0;
+        min-height: 100%;
+        min-width: 100%;
+        background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+    }
+}
+
+.body-video-bg {
+    > .section-video {
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
+}
+
+
+
+
+/**
+ * ------------------------------------
+ *  Every Section Headline Defult Class
+ * ------------------------------------
+ */
+.section-heading {
+    // color: fade(@light-color, 100%);
+    display: block;
+    margin: 0;
+}
+
+.section-header {
+    margin-bottom: 100px;
+    text-align: center;
+
+    .sub-heading {
+        font-size: 22px;
+        line-height: 30px;
+        font-weight: 300;
+        text-transform: uppercase;
+        // color: fade(@light-color, 100%);
+        margin: 0 0 10px 0;
+    }
+
+    &.text-left {
+        &,
+        * {
+            text-align: left;
+        }
+    }
+    &.text-right {
+        &,
+        * {
+            text-align: right;
+        }
+    }
+}
+
+.section-header-separator {
+    position: relative;
+    width: 145px;
+    margin: 5px auto;
+    display: inline-block;
+
+    .icon {
+        font-size: 48px;
+        // color: @light-color;
+        text-align: center !important;
+    }
+
+    &::before,
+    &::after {
+        content: '';
+        position: absolute;
+        width: 57px;
+        height: 2px;
+        // background-color: @main-color-1;
+        top: 25px;
+    }
+
+    &::before {
+        left: 0;
+    }
+
+    &::after {
+        right: 0;
+    }
+}
+
+
+.btn-shuttr-hvr {
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px transparent;
+    position: relative;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-radius: 50px;
+    -webkit-transition-property: color;
+    transition-property: color;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+}
+.btn-shuttr-hvr:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: @main-color;
+    color: @white;
+    border-color: transparent;
+    -webkit-transform: scaleY(0);
+    transform: scaleY(0);
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-radius: 50px;
+    -webkit-transform-origin: 50%;
+    transform-origin: 50%;
+    -webkit-transition-property: transform;
+    transition-property: transform;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+}
+.btn-shuttr-hvr:hover, .btn-shuttr-hvr:focus, .btn-shuttr-hvr:active {
+  color: @white;
+  border-color: transparent;
+}
+.btn-shuttr-hvr:hover:before, .btn-shuttr-hvr:focus:before, .btn-shuttr-hvr:active:before {
+    -webkit-transform: scaleY(1);
+    transform: scaleY(1);
+    border-color: transparent;
+} 
+
+.btn-shuttr-hvr-half {
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px transparent;
+    position: relative;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-radius: 50px;
+    -webkit-transition-property: color;
+    transition-property: color;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+  
+}
+.btn-shuttr-hvr-half:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: @main-color;
+    color: @white;
+    border-color: transparent;
+    -webkit-transform: scaleY(0);
+    transform: scaleY(0);
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-radius: 0px 30px 30px 0px ;
+    -webkit-transform-origin: 50%;
+    transform-origin: 50%;
+    -webkit-transition-property: transform;
+    transition-property: transform;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+}
+.btn-shuttr-hvr-half:hover, .btn-shuttr-hvr-half:focus, 
+.btn-shuttr-hvr-half:active {
+  color: white;
+  border-color: transparent;
+}
+.btn-shuttr-hvr-half:hover:before, 
+.btn-shuttr-hvr-half:focus:before, 
+.btn-shuttr-hvr-half:active:before {
+  -webkit-transform: scaleY(1);
+  transform: scaleY(1);
+} 
+
+.v-middle {
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    align-items: center;
+    -webkit-align-items: center;
+    justify-content: center;
+    -webkit-justify-content: center;
+    flex-direction: row;
+    -webkit-flex-direction: row;
+}
+.mini-separator {
+    padding: 20px 0;
+}
+/**
+ * ---------------------
+ *   Defult Button Style
+ * ---------------------
+ */
+.btn {
+   .transition(0.4s);
+    &:last-child {
+        margin-right: 0px !important;
+    }
+
+    &:hover,
+    &:focus {
+        // color: @light-color;
+    }
+
+    .icon {
+        position: relative;
+        top: 2px;
+        img {
+            position: relative;
+            top: -3px;
+            width: 14px;
+        }
+    }
+
+    &.left-icon {
+        .icon {
+            margin-right: 15px;
+        }
+    }
+
+    &.right-icon {
+        .icon {
+            margin-left: 15px;
+        }
+    }
+
+    &.white-btn-border {
+        // font-size: 24px;
+        // font-weight: 300;
+        // border: 1px solid;
+        // padding: 18px 25px;
+        
+        &:hover {
+            // border-color: darken(@main-color-1, 5%);
+        }
+    }
+
+    &.btn-fill {
+        // border-color: @main-color-1;
+        background-color: @main-color;
+        color: @white;
+        border-color: @white;
+
+        &:hover {
+            background-color: darken(@main-color, 5%);
+            border-color: transparent;
+        }
+    }
+
+    &.btn-border {
+        background-color: transparent;
+        // border-color: fade(@light-color, 100%);
+
+        &:hover {
+            // background-color: darken(@main-color-1, 5%);
+        }
+    }
+    &.white-btn-border {
+        background-color: transparent;
+        border-color: @white;
+
+        &:hover {
+            // background-color: darken(@main-color-1, 5%);
+        }
+    }
+
+    &.btn-round {
+        padding: 15px;
+        // background-color: @main-color-1;
+        border-radius: 50%;
+        width: 65px;
+        height: 65px;
+        // color: fade(@light-color, 100%);
+        font-size: 24px;
+        text-align: center;
+        // .box-shadow(0 13px 42px 0 fade(@shadow-color, 25%));
+
+        .icon {
+            top: 7px;
+        }
+    }
+
+    &.apple,
+    &.androad {
+        .border-radius( 5px );
+        padding: 9px 28px;
+        height: 82px;
+        // background: @background-1;
+        // border-color: @background-1;
+
+        img {
+            width: 35px;
+            height: 100%;
+            float: left;
+        }
+
+        .icon {
+            font-size: 60px;
+            float: left;
+        }
+
+        span {
+            display: block;
+            .transition( 0.4s );
+        }
+
+        .group {
+            float: right;
+        }
+
+        .big,
+        .small {
+            text-align: left;
+            margin-left: 7px;
+            line-height: 30px;
+        }
+
+        .big {
+            font-size: 24px;
+            font-weight: 400;
+        }
+
+        .small {
+            font-size: 16px;
+        }
+
+        &:hover {
+            // background-color: @main-color-1;
+            // border-color:  @main-color-1;
+        }
+    }
+
+}
+
+
+
+
+.btn.active.focus, 
+.btn.active:focus, 
+.btn.focus, 
+.btn:active.focus, 
+.btn:active:focus, 
+.btn:focus {
+    outline: thin dotted;
+    outline: 0px auto -webkit-focus-ring-color !important;
+    outline-offset: -2px;
+    // color: @light-color;
+}
+
+.btn-text-link {
+    padding: 50px 0 0 0;
+    text-align: center;
+    // color: fade(@dark-color, 85%);
+
+    a {
+        // color: @main-color-1;
+        margin-left: 10px;
+    }
+}
+
+
+
+
+/** 
+ * -----------------
+ * Social Icon Style
+ * -----------------
+ */
+.social-icon {
+    // margin-top: 15px;
+    display: inline-block;
+
+    li {
+        list-style: none;
+        float: left;
+        margin-bottom: 0px;
+
+        a {
+            font-size: 25px;
+            text-align: center;
+            width: 45px;
+            height: 45px;
+            padding: 10px;
+            border-radius: 50%;
+            margin-right: 15px;
+            // background-color: @main-color-1;
+            // color: fade(@light-color, 100%);
+            
+            &:hover,
+            &:focus {
+                // background-color: @main-color-3;
+                // color: @light-color;
+            }
+        }
+
+        &:last-child {
+            a {
+                margin-right: 0px;
+            }
+        }
+    }
+}
+
+
+
+/**
+ * -----------------------------------
+ * Subscription and contact  "MESSAGE"
+ * -----------------------------------
+ */
+.message {
+    .inner {
+        // background-color: @background-2;
+    }
+}
+.subscription-success, 
+.subscription-failed, 
+.email-success, 
+.email-failed,
+.email-loading {
+    font-size: 15px;
+    display: none;
+    text-align: center !important;
+    padding: 10px !important;
+}
+
+.email-loading {
+    color: #52B8FF;
+    
+    img {
+        width: 15px;
+        position: relative;
+        top: -2px;
+    }
+}
+
+.subscription-failed, 
+.email-failed{
+    color: #FF5252 !important;
+
+    .icon {
+        font-size: 20px;
+        position: relative;
+        top: 5px;
+    }
+}
+
+.subscription-success, 
+.email-success {
+    color: #56CC35;
+}
+
+.subscription-failed, 
+.email-failed,
+.subscription-success, 
+.email-success {
+    .icon {
+        font-size: 20px;
+        position: relative;
+        top: 5px;    
+    }
+}
+
+
+
+
+/**
+ * ------------------
+ * Form Style 
+ * ------------------
+ */
+
+
+
+/**
+ * =================
+ * CONTAINER HALF CONTENT
+ * =================
+ */
+.content-half {
+    position: relative;
+}
+
+.container-half {
+    position: absolute;
+    vertical-align: middle;
+    top: 0;
+    bottom: 0;
+    width: 48%;
+
+    &.pr30 {
+        width: ~"calc(50% - 30px)";
+    }
+}
+
+.container-half-left {
+    left: 0;
+    background-position: center right;
+}
+
+.container-half-right {
+    right: 0;
+    background-position: center left;
+}
+
+
+
+/**
+ * ---------------------------------
+ *  Section Background Size Property
+ * ---------------------------------
+ */
+.bg-cover {
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-position: 50% 50%;
+    background-attachment: initial;
+    background-repeat: no-repeat;
+}
+
+
+
+
+/**
+ * --------------------
+ *  Defult Margin Class
+ * --------------------
+ */
+// Margin 15px
+.margin-t-15 {
+    margin-top: 15px;
+}
+.margin-r-15 {
+    margin-right: 15px;
+}
+.margin-b-15 {
+    margin-bottom: 15px;
+}
+.margin-l-15 {
+    margin-left: 15px;
+}
+
+
+// Margin 20px
+.margin-t-20 {
+    margin-top: 20px;
+}
+.margin-r-20 {
+    margin-right: 20px;
+}
+.margin-b-20 {
+    margin-bottom: 20px;
+}
+.margin-l-20 {
+    margin-left: 20px;
+}
+
+
+// Margin 30px
+.margin-t-30 {
+    margin-top: 30px;
+}
+.margin-r-30 {
+    margin-right: 30px;
+}
+.margin-b-30 {
+    margin-bottom: 30px;
+}
+.margin-l-30 {
+    margin-left: 30px;
+}
+
+
+// Margin 40px
+.margin-t-40 {
+    margin-top: 40px;
+}
+.margin-r-40 {
+    margin-right: 40px;
+}
+.margin-b-40 {
+    margin-bottom: 40px;
+}
+.margin-l-40 {
+    margin-left: 40px;
+}
+
+
+// Margin 50px 
+.margin-t-50 {
+    margin-top: 50px;
+}
+.margin-r-50 {
+    margin-right: 50px;
+}
+.margin-b-50 {
+    margin-bottom: 50px;
+}
+.margin-l-50 {
+    margin-left: 50px;
+}
+
+
+/**
+ * ---------------------
+ *  Defult Padding class
+ * ---------------------
+ */
+// Padding 15px
+.padding-t-15 {
+    padding-top: 15px;
+}
+.padding-r-15 {
+    padding-right: 15px;
+}
+.padding-b-15 {
+    padding-bottom: 15px;
+}
+.padding-l-15 {
+    padding-left: 15px;
+}
+
+// Padding 20px
+.padding-t-20 {
+    padding-top: 20px;
+}
+.padding-r-20 {
+    padding-right: 20px;
+}
+.padding-b-20 {
+    padding-bottom: 20px;
+}
+.padding-l-20 {
+    padding-left: 20px;
+}
+
+// Padding 30px
+.padding-t-30 {
+    padding-top: 30px;
+}
+.padding-r-30 {
+    padding-right: 30px;
+}
+.padding-b-30 {
+    padding-bottom: 30px;
+}
+.padding-l-30 {
+    padding-left: 30px;
+}
+
+
+// Padding 40px
+.padding-t-40 {
+    padding-top: 40px;
+}
+.padding-r-40 {
+    padding-right: 40px;
+}
+.padding-b-40 {
+    padding-bottom: 40px;
+}
+.padding-l-40 {
+    padding-left: 40px;
+}
+
+
+// Padding 50px 
+.padding-t-50 {
+    padding-top: 50px;
+}
+.padding-r-50 {
+    padding-right: 50px;
+}
+.padding-b-50 {
+    padding-bottom: 50px;
+}
+.padding-l-50 {
+    padding-left: 50px;
+}
+
+
+
+
+@media (max-width: @screen-sm-max) {
+    
+    .container-half-left,
+    .container-half-right {
+        display: none;
+    }
+    
+}
+
+
+@media (max-width: @screen-xs-max) {
+
+
+
+    /**
+     * ----------------
+     *  Defult CSS 
+     * ----------------
+     */
+    html *,
+    body,
+    p{
+        text-align: center;
+    }
+
+
+    h1 {
+        font-size:          45px;
+        line-height:        65px;
+        font-weight:        300;
+    }
+
+
+    h2 {
+        font-size:          38px;
+        line-height:        55px;
+        font-weight:        300;
+    }
+
+
+
+
+    /**
+     * ------------------------------------
+     *  Every Section Headline Defult Class
+     * ------------------------------------
+     */
+    .section-header {
+        margin-bottom: 80px;
+
+        .sub-heading {
+            font-size: 24px;
+            line-height: 30px;
+        }
+    }
+
+
+
+
+    /**
+     * ---------------------
+     *   Defult Button Style
+     * ---------------------
+     */
+    .btn {
+        
+    }
+
+
+
+    /**
+     * -------------------------------
+     *  Section Top and Bottom padding  
+     * -------------------------------
+     */
+    .section-separator {
+        display: block;
+        padding-top: 60px;
+        padding-bottom: 60px;
+    }
+
+
+
+    /**
+     * -----------------
+     * Nav Defult Style
+     * -----------------
+     */
+    .nav {
+        // display: inline-block;
+    }
+
+    ul,
+    li {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    li {
+        display: inline-block;
+    }
+
+
+
+
+    /**
+     * ----------------
+     *   Helping Class
+     * ----------------
+     */
+    .vertical-middle {
+        display: block;
+    }
+
+    .display-table {
+        width: auto;
+        height: auto;
+    }
+    
+}

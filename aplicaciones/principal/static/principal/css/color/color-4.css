@@ -1,0 +1,184 @@
+/* 
+    main-color : @main-color;
+    btn hover color : #6227e7;
+*/
+.main-color-bg {
+  background-color: #3cb878;
+}
+.main-color {
+  color: #3cb878;
+}
+.ch-grid .ch-grid-item figure:hover figcaption {
+  background: rgba(60, 184, 120, 0.8);
+}
+.btn-border:hover {
+  background-color: #3cb878;
+}
+.btn-base {
+  background-color: #3cb878;
+}
+.main-color-bg {
+  background-color: #3cb878;
+}
+.main-color {
+  color: #3cb878;
+}
+.btn.btn-fill {
+  background-color: #3cb878;
+}
+.btn.btn-fill:hover, .btn.btn-fill:focus {
+  background-color: #36a56b;
+  border-color: transparent;
+}
+.section-title h2 span {
+  color: #3cb878;
+}
+.form-control:focus, .ch-client form .form-control:focus {
+  border-color: #3cb878;
+}
+.navbar-nav > li > .dropdown-menu li a:hover {
+  color: #3cb878;
+}
+.navbar-nav > li > a.sign-up {
+  border-color: #3cb878;
+}
+.navbar-nav > li > a:hover:before,
+.navbar-nav > li > a:focus:before {
+  background: #3cb878;
+  color: #3cb878;
+}
+.navbar-nav > li > a:hover,
+.navbar-nav > li > a:focus {
+  color: #3cb878;
+}
+.navbar-nav li.active a:before {
+  color: #3cb878;
+  background: #3cb878;
+}
+.navbar-nav li.active a {
+  color: #3cb878;
+}
+.header-slider .owl-prev .fa:hover,
+.header-slider .owl-next .fa:hover {
+  color: #3cb878;
+}
+.features-inner .each-details .fa:before {
+  color: #3cb878;
+}
+.features-inner .features-content {
+  /* background: #3cb878; */
+}
+.ch-causes .cause-inner-content .btn {
+  border-color: #3cb878;
+}
+.ch-causes .progress-bar {
+  background: #3cb878;
+}
+.ch-event {
+  position: relative;
+}
+.ch-event .owl-next,
+.ch-causes .progress-bar .progress-circle {
+  background: #3cb878;
+  border-color: #83d7ac;
+}
+.ch-event .owl-prev {
+  background: #3cb878;
+  border-color: #83d7ac;
+}
+.ch-event .event-banner .date {
+  background-color: #3cb878;
+}
+.ch-event .event-content .btn {
+  border-color: #3cb878;
+}
+.ch-client-testimonial .item blockquote h3 {
+  color: #3cb878;
+}
+.ch-client-testimonial .item blockquote p:before {
+  color: #3cb878;
+}
+.ch-client-testimonial .item blockquote p:after {
+  color: #3cb878;
+}
+.ch-client .contact-form .section-title h2 span {
+  color: #3cb878;
+}
+.copyright ul li:hover a {
+  color: #3cb878;
+}
+.copyright .coptyright-content a:hover {
+  color: #3cb878;
+}
+.ch-pagination .pagination li a {
+  border-color: #3cb878;
+}
+.ch-pagination .pagination > .active > a,
+.ch-pagination .pagination > .active > a:focus,
+.ch-pagination .pagination > .active > a:hover,
+.ch-pagination .pagination > .active > span,
+.ch-pagination .pagination > .active > span:focus,
+.ch-pagination .pagination > .active > span:hover {
+  background-color: #3cb878;
+}
+.ch-blog .blog-banner .date {
+  background-color: #3cb878;
+}
+.ch-blog .blog-content .btn {
+  border-color: #3cb878;
+}
+.ch-volanteer .vl-thumb:hover a {
+  color: #3cb878;
+}
+.ch-sidebar a:hover {
+  color: #3cb878;
+}
+.blog-content blockquote {
+  color: #3cb878;
+}
+.blog-tags .tags a:hover {
+  color: #3cb878;
+}
+.comment a {
+  color: #3cb878;
+}
+.mean-container .mean-nav ul li a.mean-expand {
+  background-color: #3cb878;
+}
+.mean-container .mean-nav ul li a.mean-expand:hover {
+  background-color: #3cb878;
+}
+.mean-container .mean-nav ul li {
+  border-color: #3cb878;
+}
+@media only screen and (max-width: 992px) {
+  .ch-testimonial {
+    background-color: #3cb878;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .navbar-toggle .icon,
+  .navbar-toggle .icon::after,
+  .navbar-toggle .icon::before {
+    background-color: #3cb878;
+  }
+  .ch-testimonial {
+    background-color: #3cb878;
+  }
+  .navbar-toggle .icon,
+  .navbar-toggle .icon::after,
+  .navbar-toggle .icon::before {
+    background-color: #3cb878;
+  }
+  .navbar-toggle .icon::after,
+  .navbar-toggle .icon::before {
+    background-color: #3cb878;
+  }
+  .navbar-toggle.active .icon::after,
+  .navbar-toggle.active .icon::before {
+    background-color: #3cb878;
+  }
+  .navbar-collapse .nav li a:hover {
+    color: #3cb878;
+  }
+}
