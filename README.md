@@ -63,7 +63,7 @@ $ source myenv/bin/activate
 
 #### Y navegue hasta http://127.0.0.1:8000/
 
-## Deployar en [Heroku](https://devcenter.heroku.com/articles/heroku-postgresql):
+## Deployar en [Heroku](https://devcenter.heroku.com/articles/heroku-postgresql) :rocket:
 
 ### En la consola de Heroku en la parte de variables de configuracion [info](https://devcenter.heroku.com/articles/config-vars) , puede agregar las siguientes configuraciones
 
@@ -89,11 +89,11 @@ USER_MAIL_PASSWORD=yourpassword
 (myenv)$ heroku run python manage.py migrate
 ```
 
-## Contribuciones
+## Contribuciones :raised_hands:
 
 [Gilda Rey](https://github.com/gildarey/) - Trabajo inicial
 
-## Versiones
+## Versiones :arrows_clockwise:
 
 ## Autores
 
