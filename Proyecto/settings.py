@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+
 from pathlib import Path
 import os
 import mimetypes
@@ -24,29 +25,46 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+ALLOWED_HOSTS = ['*']
 SECRET_KEY = config('SECRET_KEY')
-
 GOOGLE_MAPS_API_KEY = config('GOOGLE_MAPS_API_KEY')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-# ALLOWED_HOSTS =  ['localhost', '127.0.0.1']
-ALLOWED_HOSTS =  ['*']
+if config('LOCAL'):  # if the .env file containts LOCAL=TRUE
+    DEBUG = True
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
 
-AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
-AWS_S3_FILE_OVERWRITE = False
-AWS_DEFAULT_ACL = None
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+else:
+    import dj_database_url
+    # SECURITY WARNING: don't run with debug turned on in production!
+    DEBUG = False
+    # ALLOWED_HOSTS =  ['localhost', '127.0.0.1']
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = config('USER_MAIL')
-EMAIL_HOST_PASSWORD = config('USER_MAIL_PASSWORD')
-EMAIL_USE_TLS = True
+    AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+    AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+    AWS_S3_FILE_OVERWRITE = False
+    AWS_DEFAULT_ACL = None
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_PORT = 587
+    EMAIL_HOST_USER = config('USER_MAIL')
+    EMAIL_HOST_PASSWORD = config('USER_MAIL_PASSWORD')
+    EMAIL_USE_TLS = True
+    STATICFILES_DIRS = (
+        os.path.join(BASE_DIR, "static"),
+        # os.path.join(BASE_DIR, "uploads"),
+    )
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'  # new
+    DATABASES = {}
+    db_from_env = dj_database_url.config()
+    DATABASES['default'].update(db_from_env)
 # Application definition
 
 INSTALLED_APPS = [
@@ -55,7 +73,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'whitenoise.runserver_nostatic', # new
+    'whitenoise.runserver_nostatic',  # new
     'django.contrib.staticfiles',
     'aplicaciones.principal',
     'storages',
@@ -65,7 +83,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware', # new
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # new
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -105,15 +123,6 @@ WSGI_APPLICATION = 'Proyecto.wsgi.application'
 #     }
 # }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-import dj_database_url
-db_from_env = dj_database_url.config()
-DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -150,19 +159,12 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
+STATIC_ROOT = os.path.join(os.path.normpath(BASE_DIR), "staticfiles")
 
 STATIC_URL = '/static/'
-
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
-    # os.path.join(BASE_DIR, "uploads"),
-)
-
-STATIC_ROOT = os.path.join(os.path.normpath(BASE_DIR), "staticfiles")
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 
 # STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),] # new
 # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') # new
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' # new
