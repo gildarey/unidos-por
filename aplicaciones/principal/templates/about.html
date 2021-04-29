@@ -2,7 +2,14 @@
 {% block title %}
 Unidos
 {% endblock title %}
+
 {% block sources %}
+
+<style>
+    .features-inner .each-details .fa:before{
+        color: white !important;
+    }
+</style>
 {% endblock sources %}
 </head>
 
@@ -15,7 +22,7 @@ Unidos
         <div class="container">
             <div class="row section-separator">
                 <div class="section-title">
-                    <h2 class="wow fadeInRight" data-wow-delay="0.2s"><span>Unidos</span> por una causa</h2>
+                    <h2 class="wow fadeInRight" data-wow-delay="0.2s"><span>Unidos</span></h2>
                 </div>
                 <div class="ch-mission-content">
                     <div class="two-column-content col-md-12 col-sm-12 wow fadeInRight" data-wow-delay="0.6s">
@@ -34,11 +41,65 @@ Unidos
         </div>
     </section>
 
+    <section class="section bg-2 main-color-bg" id="ch-service">
+        <div class="container">
+            <div class="row section-separator">
+                <div class="section-title">
+                    <h2 class="wow fadeInRight" data-wow-delay="0.2s">Unidos por</h2>
+                </div>
+                <div class="col-md-3 col-sm-6 wow fadeInRight" data-wow-delay="0.3s">
+                    <div class="each-features">
+                        <div class="features-inner">
+                            <div class="each-details center">
+                                <i style="font-size: 3rem;" class="fa fa-stethoscope"></i>
+                                <h3>Salud</h3>
+                                <a href='{% url "eventos" %}?categoria=salud' class="btn btn-fill">Ir a donar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 wow fadeInRight" data-wow-delay="0.6s">
+                    <div class="each-features">
+                        <div class="features-inner">
+                            <div class="each-details center">
+                                <i style="font-size: 3rem;" class="fa fa-calendar"></i>
+                                <h3>Eventos</h3>
+                                <a href='{% url "eventos" %}?categoria=otros' class="btn btn-fill">Ir a donar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 wow fadeInRight" data-wow-delay="0.9s">
+                    <div class="each-features">
+                        <div class="features-inner">
+                            <div class="each-details center">
+                                <i style="font-size: 3rem;" class="fa fa-graduation-cap"></i>
+                                <h3>Educación</h3>
+                                <a href='{% url "eventos" %}?categoria=educacion' class="btn btn-fill">Ir a donar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 wow fadeInRight" data-wow-delay="0.9s">
+                    <div class="each-features">
+                        <div class="features-inner">
+                            <div class="each-details center">
+                                <i style="font-size: 3rem;" class="fas fa-fire"></i>
+                                <h3>Incendios</h3>
+                                <a href='{% url "eventos" %}?categoria=incendios' class="btn btn-fill">Ir a donar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="section ch-mission bg-2" id="ch-mission">
         <div class="container">
             <div class="row section-separator">
                 <div class="section-title">
-                    <h2 class="wow fadeInRight" data-wow-delay="0.3s"><span>unidos por</span> una causa</h2>
+                    <h2 class="wow fadeInRight" data-wow-delay="0.3s">Nosotros</h2>
                 </div>
                 <div class="ch-mission-content">
                     <div class="col-md-4 col-sm-4 mission-item wow fadeInRight" data-wow-delay="0.9s">
@@ -78,13 +139,15 @@ Unidos
             </div>
         </div>
     </section>
-    <section class="section ch-join main-color-bg">
+
+    
+    <section class="section main-color-bg ch-join main-color-bg">
         <div class="container">
             <div class="row section-separator">
                 <div class="table-display">
                     <div class="join-content col-md-8 wow fadeInRight">
                         <h3>Registra tu evento gratis</h3>
-                        <p>Registra tu evento y compartilo.</p>
+                        <p>En <span>UNIDOS</span> puedes registrar tu causa de forma gratuita. Regístrate, cuenta tu historia, selecciona el área y compartilo.</p>
                     </div>
                     <div class="join-btn col-md-4 wow fadeInLeft">
                         <a href='{% url "crear-evento" %}' class="btn btn-fill">Registrar</a>
@@ -93,6 +156,8 @@ Unidos
             </div>
         </div>
     </section>
+
+    
 
     <section class="section ch-join">
         <div class="container">

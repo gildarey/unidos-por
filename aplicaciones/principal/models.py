@@ -12,6 +12,7 @@ class Evento(models.Model):
     telefono = models.CharField(max_length=13)
     # email = models.EmailField()
     medios = models.CharField(max_length=500, default="efectivo")
+    enable_meta = models.BooleanField(default=True)
     meta = models.IntegerField(default=100000)
     costo = models.IntegerField(default=10000)
     direccion = models.CharField(max_length=300)
@@ -28,3 +29,24 @@ class Evento(models.Model):
     
     def __str__(self):
         return self.evento
+
+class Emprendimiento(models.Model):
+    id = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=250)
+    usuario = models.CharField(max_length=250)
+    telefono = models.CharField(max_length=13)
+    email = models.EmailField()
+    medios = models.CharField(max_length=500, default="efectivo")
+    direccion = models.CharField(max_length=300)
+    ciudad = models.CharField(max_length=300, default="asuncion")
+    image = models.FileField(blank=True)
+    descripcion = models.CharField(max_length=10000)
+    # random_url = models.UUIDField(default=uuid.uuid4)
+    url = models.CharField(max_length=250, default="unidos-por-")
+    categoria = models.CharField(max_length=100, default="todos")
+    # foto = models.ImageField(upload_to='eventos')
+    latitud = models.DecimalField(max_digits=50, decimal_places=20, default=0)
+    longitud = models.DecimalField(max_digits=50, decimal_places=20, default=0)
+    
+    def __str__(self):
+        return self.emprendimiento

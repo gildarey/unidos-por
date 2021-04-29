@@ -19,7 +19,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <!-- bootstrapcdn -->
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
     {% load static %}
+
+
+
     <link rel="stylesheet" href="{% static 'principal/css/styles.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'principal/css/responsive.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'principal/css/color/color-4.css' %}" type="text/css" id="color-scheme">
@@ -32,18 +36,39 @@
     <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
 
     <!-- FONT ICONS -->
-    <link rel="stylesheet" href="{% static 'principal/icons/font-awesome-4.7.0/css/font-awesome.min.css' %}">
-    <!-- Custom Icon Font -->
-    <link rel="stylesheet" href="{% static 'principal/fonts/flaticon.css' %}">
 
 
 
     {% block sources %}
+
+    <style>
+        @media only screen and (max-width: 600px) {
+            .item{
+                height: 700px;
+                background: #fafafa;
+            }
+            h1{
+                font-size: 3rem;
+                color: #3cb878 !important;
+                font-weight: 700;
+            }
+            p{
+                color: black !important;
+            }
+            .carousel-inner>.item>a>img, .carousel-inner>.item>img {
+                display: none;
+            }
+        }
+        .features-inner .each-details .fa:before{
+            color: white !important;
+        }
+    </style>
+
     {% endblock sources %}
 </head>
 {% block body %}
 
-<body>
+<body onload="init()">
     {% endblock body %}
     <!--
         |========================
@@ -69,7 +94,7 @@
                                 {% elif current_page == "form" %}
                                 <li><a href='{% url "index" %}'>Inicio</a><span></span></li>
                                 <li><a href='{% url "about" %}'>Sobre el Proyecto</a><span></span></li>
-                                <li class="active"><a href='{% url "crear-evento" %}'>Registrar Eventos</a><span></span>
+                                <li class="active"><a href='{% url "crear-evento" %}'>Registrar</a><span></span>
                                 </li>
                                 {% elif current_page == "events" %}
                                 <li><a href='{% url "index" %}'>Inicio</a><span></span></li>
@@ -102,7 +127,8 @@
     <div class="menu-spacing visible-xs">
         <div class="mobile-menu-area visible-xs visible-sm">
             <div class="mobile-menu">
-                <div class="row" style="padding-top: 5%;color: #3cb878; text-transform: uppercase;text-decoration: none; font-weight: bold;">
+                <div class="row"
+                    style="padding-top: 5%;color: #3cb878; text-transform: uppercase;text-decoration: none; font-weight: bold;">
                     <div class="col-xs-3">
                         <a href='{% url "index" %}' style="color: #3cb878;">Inicio</a>
                     </div>
@@ -120,33 +146,26 @@
         </div>
     </div>
     {% block page %}
+    <div id="myCarousel" class="carousel slide" data-ride="carousel" style="margin-top: 5%;">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="" data-slide-to="0" class="active"></li>
+            <li data-target="" data-slide-to="1"></li>
+            <li data-target="" data-slide-to="2"></li>
+        </ol>
 
-    <section class="header-slider header-slider-preloader" id="header-slider">
-        <div class="animation-slides owl-carousel owl-theme" id="animation-slide">
-            <!--Slide 1-->
-            <div style="background-image:url('https://cdn.pixabay.com/photo/2017/02/10/12/03/volunteer-2055015__340.png')"
-                class="item">
-                <div class="slide-table">
-                    <div class="slide-tablecell">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-7">
-                                    <div class="slide-text">
-                                        <h1>Unidos por...</h1>
-                                        <p>La nueva plataforma para recaudar fondos. Registrá tu evento y
-                                            compartilo.</p>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-2 col-xs-12">
-                                    <a href='{% url "eventos" %}' class="slide-btn btn btn-border">Ver
-                                        Eventos</a>
-                                </div>
-                                <div class="col-md-2 col-xs-12">
-                                    <a href='{% url "crear-evento" %}'
-                                        class="slide-btn btn btn-border">Registrar Evento</a>
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            <div class="item active" style="padding-top:10;">
+                <img src="https://unidos-por.s3.us-east-2.amazonaws.com/3.png" class=".d-none .d-sm-block carousel-img w-100" alt="unidos">
+                <div class="carousel-caption " style="top: 50%; transform: translateY(-50%);">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="slide-text" style="padding-top:10; text-transform: uppercase;">
+                                <h1>Unidos</h1>
+                                <p>Regístrate, cuenta tu historia, selecciona el área y compartilo</p>
+                                <div class="slide-buttons">
+                                    <a href='{% url "crear-evento" %}' class="slide-btn btn btn-border">Registrar</a>
                                 </div>
                             </div>
                         </div>
@@ -154,17 +173,52 @@
                 </div>
             </div>
 
-        </div>
+            <div class="item" style="padding-top:10;">
+                <img src="https://unidos-por.s3.us-east-2.amazonaws.com/2.png" class=".d-none .d-sm-block  w-100 carousel-img" alt="unidos">
+                <div class="carousel-caption " style="top: 50%;  transform: translateY(-50%);">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="slide-text" style="padding-top:10; text-transform: uppercase;">
+                                <h1>Tu ayuda es IMPORTANTE</h1>
+                                <p>Porque dar es mejor que recibir, conoce sus historias y apoya sus causas</p>
+                                <div class="slide-buttons">
+                                    <a href='{% url "eventos" %}' class="slide-btn btn btn-border">Ver
+                                        Eventos</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    </section>
-    <section class="section bg-2" id="ch-service">
+            <div class="item" style="padding-top:10;">
+                <img src="https://unidos-por.s3.us-east-2.amazonaws.com/1.png" class=".d-none .d-sm-block  w-100 carousel-img" alt="unidos">
+                <div class="carousel-caption " style="top: 50%;  transform: translateY(-50%);">
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12">
+                            <div class="slide-text" style="padding-top:10; text-transform: uppercase;">
+                                <h1>Apoya un emprendimiento</h1>
+                                <p>Conoce sus historias, apoya y comparte sus servicios</p>
+                                <div class="slide-buttons">
+                                    <a href='{% url "eventos" %}' class="slide-btn btn btn-border">Ver
+                                        Eventos</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="section bg-2 main-color-bg" id="ch-service">
         <div class="container">
             <div class="row section-separator">
                 <div class="col-md-3 col-sm-6 wow fadeInRight" data-wow-delay="0.3s">
                     <div class="each-features">
                         <div class="features-inner">
                             <div class="each-details center">
-                                <i style="font-size: 3rem;" class="fa fa-stethoscope"></i>
+                                <i style="font-size: 3rem; color:white !important" class="fa fa-stethoscope"></i>
                                 <h3>Salud</h3>
                                 <a href='{% url "eventos" %}?categoria=salud' class="btn btn-fill">Ir a donar</a>
                             </div>
@@ -175,7 +229,7 @@
                     <div class="each-features">
                         <div class="features-inner">
                             <div class="each-details center">
-                                <i style="font-size: 3rem;" class="fa fa-calendar"></i>
+                                <i style="font-size: 3rem; color:white !important" class="fa fa-calendar"></i>
                                 <h3>Eventos</h3>
                                 <a href='{% url "eventos" %}?categoria=otros' class="btn btn-fill">Ir a donar</a>
                             </div>
@@ -186,7 +240,7 @@
                     <div class="each-features">
                         <div class="features-inner">
                             <div class="each-details center">
-                                <i style="font-size: 3rem;" class="fa fa-graduation-cap"></i>
+                                <i style="font-size: 3rem; color:white !important" class="fa fa-graduation-cap"></i>
                                 <h3>Educación</h3>
                                 <a href='{% url "eventos" %}?categoria=educacion' class="btn btn-fill">Ir a donar</a>
                             </div>
@@ -197,7 +251,7 @@
                     <div class="each-features">
                         <div class="features-inner">
                             <div class="each-details center">
-                                <i style="font-size: 3rem;" class="fa flaticon-fire"></i>
+                                <i style="font-size: 3rem;" class="fas fa-fire"></i>
                                 <h3>Incendios</h3>
                                 <a href='{% url "eventos" %}?categoria=incendios' class="btn btn-fill">Ir a donar</a>
                             </div>
@@ -207,47 +261,36 @@
             </div>
         </div>
     </section>
-    <section class="section ch-causes main-color-bg ch-donation-causes-grid" id="ch-causes">
+
+    <section class="section ch-event event-grid" id="ch-events" style="background-color: #fafafa;">
         <div class="container">
             <div class="row section-separator">
                 <div class="section-title">
-                    <h2 class="wow fadeInRight" data-wow-delay="0.3s">Tu ayuda es IMPORTANTE</h2>
+                    <h2 class="wow fadeInRight" data-wow-delay="0.3s">Próximos eventos</h2>
+                    <h4 class="wow fadeInRight" data-wow-delay="0.3s">¡Estos son los próximos eventos para recaudar
+                        fondos, tu ayuda es importante!</h4>
                 </div>
-                <div class="each-causes">
-
-                    {% for evento in records %}
+                <div class="each-events wow fadeIn my-carousel" id="my-carousel">
+                    {% for evento in eventos %}
                     <div class="col-md-4 col-sm-6 wow fadeInRight" data-wow-delay="0.3s">
-                        <div class="cause-inner white-bg">
-                            {% if detalle.image %}
-                            <img src="{{ detalle.image.url }}" alt="{{ detalle.evento }}" class="img-responsive">
-                            {% endif %}
-
-                            <div class="cause-inner-content">
-                                <h4>{{ evento.evento }}</h4>
-                                <h6>#unidospor {{ evento.beneficiario }}</h6>
-                                <div class="fund-circle">
-                                    <h5>Costo:
-                                        <span class="amount main-color">Gs. {{ evento.costo }}</span>
-                                    </h5>
-                                </div>
-                                <!-- <span class="progress-val">84%</span> -->
-                                <!-- <div class="fund-process">
-                                    <div class="progress">
-                                        <div class="progress-bar" style="width: 80%">
-
-                                        </div>
-                                    </div>
-                                </div> -->
-                                <h6>¡Ayuda a {{ evento.beneficiario }} a llegar a su meta!</h6>
+                        <div class="card white-bg" style="box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); width: 100%;padding: 10px 10px 10px 10px;border: 1px white solid;border-radius: 5px;">
+                            <img src="{{ evento.image.url }}" alt="{{ detalle.evento }}" class="card-img-top img-responsive">
+                            <div class="card-body">
+                                <span class="date" style="font-size: 3rem; background-color: #3cb878; color: white;">{{ evento.fecha }}</span>
+                                <h4 class="card-title"  style="text-transform: uppercase;">{{ evento.evento }} </h4>
+                                <p class="money" style="font-weight: 500;">{{ evento.costo }}</p>
+                                <p><span class="event-place"><i class="fa fa-map-marker main-color"></i>{{evento.ciudad }}</span></p>
+                                <p class="card-text">¡Ayuda a {{ evento.beneficiario }} a llegar a su meta!</p>
+                                <p class="card-title">UNIDOS POR {{ evento.beneficiario }} </p>
                                 <a href='/evento/{{evento.url}}' class="btn btn-border" style="text-align: center;">Ver
-                                    detalles</a>
+                                    más</a>
                             </div>
-                        </div>
+                          </div>
                     </div>
                     {% endfor %}
                 </div>
             </div>
-            {% if records %}
+            {% if eventos %}
             <div class="row" style="padding-bottom: 2%;">
                 <div class="col-md-12 col-sm-12" style="text-align: right;">
                     <a href='{% url "eventos" %}' class="btn btn-border">Ver más</a>
@@ -257,14 +300,77 @@
         </div>
     </section>
 
+    <section class="section ch-who-we-are" id="ch-who-we">
+        <div class="container">
+            <div class="row section-separator">
+                <div class="section-title">
+                    <h2 class="wow fadeInRight" data-wow-delay="0.2s">APOYA UN <span>EMPRENDIMIENTO</span></h2>
+                </div>
+                <div class="ch-mission-content">
+                    <div class="two-column-content col-md-6 col-sm-6 wow fadeInRight" data-wow-delay="0.6s">
+                        <p>Las microempresas y las pequeñas empresas se han visto enormemente
+                            afectadas por la pandemia de COVID-19. Las restricciones gubernamentales y sanitarias y
+                            los efectos económicos de la pandemia de COVID-19 han sido un gran desafío para muchas
+                            emprendimientos y microempresas.
+                            Aquí puedes apoyar a todos estos emprendimientos que se vieron afectados, conociendo sus
+                            historias y sus servicios.
+                        </p>
+                    </div>
+                    <div class="two-column-content col-md-6 col-sm-6 wow fadeInRight" data-wow-delay="0.9s">
+                        <div class="inner" style="text-align: center;">
+                        {% if emprendimientos %}
+                        <div class="col-md-4 col-sm-6 wow fadeInRight" data-wow-delay="0.3s">
+                            <div class="card white-bg" style="box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); width: 100%;padding: 10px 10px 10px 10px;border: 1px white solid;border-radius: 5px;">
+                                <img src="{{ emprendimientos.image.url }}" alt="{{ emprendimientos.nombre }}" class="card-img-top img-responsive">
+                                <div class="card-body">
+                                    <h4 class="card-title"  style="text-transform: uppercase;">{{ evento.evento }} </h4>
+                                    <p><span class="event-place"><i class="fa fa-map-marker main-color"></i>{{evento.ciudad }}</span></p>
+                                    <p class="card-text">¡Ayuda a {{ evento.usuario }} con su emprendimiento!</p>
+                                    <p class="card-title">UNIDOS POR {{ evento.usuario }} </p>
+                                    <a href='/eventos' class="btn btn-border" style="text-align: center;">Ver
+                                        más</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                            <!-- <a href='{% url "eventos" %}' class="btn btn-border">Ver más</a> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <section class="section ch-join">
+    <section class="section" id="ch-who-we" style="background-color: #fafafa;">
+        <div class="container">
+            <div class="row section-separator">
+                <div class="section-title">
+                    <h2 class="wow fadeInRight" data-wow-delay="0.2s">ADOPTA UNA <span>CLASE</span></h2>
+                </div>
+                <div class="ch-mission-content">
+                    <div class="two-column-content col-md-6 col-sm-6 wow fadeInRight" data-wow-delay="0.9s">
+                        <div class="inner" style="text-align: center;">
+                            <a href='{% url "eventos" %}' class="btn btn-border">Ver más</a>
+                        </div>
+                    </div>
+                    <div class="two-column-content col-md-6 col-sm-6 wow fadeInRight" data-wow-delay="0.6s">
+                        <p>Encuentra y apoya a las instituciones educativas, conoce sus historias, necesidades y cómo
+                            puedes ayudarlos.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section main-color-bg ch-join">
         <div class="container">
             <div class="row section-separator">
                 <div class="table-display">
                     <div class="join-content col-md-8 wow fadeInRight">
                         <h3>Registra tu evento gratis</h3>
-                        <p>Registra tu evento y compartilo.</p>
+                        <p>En <span>UNIDOS</span> puedes registrar tu causa de forma gratuita. Regístrate, cuenta tu
+                            historia, selecciona el área y compartilo.</p>
                     </div>
                     <div class="join-btn col-md-4 wow fadeInLeft">
                         <a href='{% url "crear-evento" %}' class="btn btn-fill">Registrar</a>
@@ -273,8 +379,8 @@
             </div>
         </div>
     </section>
-    
-    <section class="section ch-join main-color-bg">
+
+    <section class="section ch-join">
         <div class="container">
             <div class="row section-separator">
                 <div class="table-display">
@@ -288,6 +394,35 @@
             </div>
         </div>
     </section>
+
+    <script>
+        function init(){
+            try {
+                console.clear();
+                var elements = document.querySelectorAll('.card-img-top');
+        
+                elements.forEach(function (userItem) {
+                    const file = userItem.src;
+                    const newFile = file.substr(0, file.indexOf('?'));
+                    userItem.src = newFile;
+                });
+                
+                const style = { style: 'currency', currency: 'PYG' };
+                const numberFormat = new Intl.NumberFormat('es-ES', style);
+        
+                elements = document.querySelectorAll('.money');
+                elements.forEach(function (userItem) {
+                    const initial = userItem.innerHTML;
+                    const costo = numberFormat.format(parseFloat(initial));
+                    userItem.innerHTML = "<i class='fas fa-money-bill-wave-alt main-color'></i>" + costo;
+                });
+        
+        
+          } catch (e) {
+            console.error("Unexpected error ocurred.", e);
+          }
+        }
+    </script>
 
     {% endblock page %}
     <!-- <footer class="section ch-footer footer-bg" id="ch-footer">
@@ -315,26 +450,6 @@
             </div>
         </div>
     </section>
-
-    <!-- mean menu nav-->
-    <script src="{% static 'principal/plugins/js/meanmenu.js' %}"></script>
-    <!-- ajaxchimp -->
-    <script src="{% static 'principal/plugins/js/jquery.ajaxchimp.min.js' %}"></script>
-    <!-- wow -->
-    <script src="{% static 'principal/plugins/js/wow.min.js' %}"></script>
-    <!-- Fancybox js-->
-    <script src="{% static 'principal/plugins/js/jquery.fancybox.pack.js' %}"></script>
-    <!---->
-    <script src="{% static 'principal/plugins/js/countUp.min.js' %}"></script>
-    <!---->
-    <script src="{% static 'principal/plugins/js/owl.carousel.js' %}"></script>
-    <!--validator -->
-    <script src="{% static 'principal/plugins/js/validator.min.js' %}"></script>
-    <!--smooth scroll-->
-    <script src="{% static 'principal/plugins/js/smooth-scroll.js' %}"></script>
-    <!-- init -->
-    <script src="{% static 'principal/js/init.js' %}"></script>
-
 </body>
 
 </html>
