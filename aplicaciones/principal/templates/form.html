@@ -395,7 +395,7 @@ Crear Evento
                     error: function (xhr, errmsg, err) {
                         document.getElementById("evento-form").reset();
                         var baseURL = 'http://www.unidos-por.com/evento';
-                        window.open(baseUrl, "_self");                    
+                        window.open(baseURL, "_self");                    
                         console.log(xhr.status + ": " + xhr.responseText);
                     }
                 });

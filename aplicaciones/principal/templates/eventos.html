@@ -65,14 +65,29 @@ Eventos
               {% endfor %}
             </ul>
 
+            {% if records.has_other_pages %}
             <ul class="pagination" style="color: #3cb878;">
-              <!-- <li><a href="#">&laquo;</a></li> -->
+              {% if records.has_previous %}
+              <li><a href="?page={{ records.previous_page_number }}">&laquo;</a></li>
+              {% else %}
               <li class="disabled"><span>&laquo;</span></li>
-              <li class="disabled"><span>1</span></li>
-              <li class="disabled"><a href="#">2</a></li>
-              <!-- <li><a href="#">&raquo;</a></li> -->
+              {% endif %}
+              {% for i in records.paginator.page_range %}
+              {% if records.number == i %}
+              <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+              {% else %}
+              <li><a href="?page={{ i }}">{{ i }}</a></li>
+              {% endif %}
+              {% endfor %}
+              {% if records.has_next %}
+              <li><a href="?page={{ records.next_page_number }}">&raquo;</a></li>
+              {% else %}
               <li class="disabled"><span>&raquo;</span></li>
+              {% endif %}
             </ul>
+            {% endif %}
+
+
           </div>
         </aside>
         <!-- </div> -->
@@ -82,18 +97,18 @@ Eventos
 
   <section class="section ch-join main-color-bg">
     <div class="container">
-        <div class="row section-separator">
-            <div class="table-display">
-                <div class="join-content col-md-8 wow fadeInRight">
-                    <h3>Reportar un problema</h3>
-                </div>
-                <div class="join-btn col-md-4 wow fadeInLeft">
-                    <a href='{% url "reportar" %}' class="btn btn-fill">Reportar</a>
-                </div>
-            </div>
+      <div class="row section-separator">
+        <div class="table-display">
+          <div class="join-content col-md-8 wow fadeInRight">
+            <h3>Reportar un problema</h3>
+          </div>
+          <div class="join-btn col-md-4 wow fadeInLeft">
+            <a href='{% url "reportar" %}' class="btn btn-fill">Reportar</a>
+          </div>
         </div>
+      </div>
     </div>
-  </section> 
+  </section>
 
   <script src="https://maps.googleapis.com/maps/api/js?key={{google_api}}&callback=initMap&libraries=&v=weekly"
     async></script>
